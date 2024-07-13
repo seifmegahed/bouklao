@@ -1,10 +1,11 @@
 import { useState } from "react";
-import useAnimationFrame from "../hooks/useAnimationFrame";
+import useAnimate from "../hooks/useAnimate";
 
 function MovingBackground(props: {
   speed: number;
   imageURL: string;
   bottomOffset: string;
+  zIndex?: number;
 }) {
   const [framePositions, setFramePositions] = useState([0, 300]);
 
@@ -17,7 +18,7 @@ function MovingBackground(props: {
     );
   };
 
-  useAnimationFrame(update, true);
+  useAnimate(update, true);
 
   return (
     <>
@@ -26,7 +27,11 @@ function MovingBackground(props: {
           key={`ground-${index}`}
           src={props.imageURL}
           className="moving-background"
-          style={{ left: `${position}%`, bottom: props.bottomOffset }}
+          style={{
+            left: `${position}%`,
+            bottom: props.bottomOffset,
+            zIndex: props.zIndex ?? 0,
+          }}
         />
       ))}
     </>

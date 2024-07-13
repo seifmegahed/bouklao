@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-const useAnimationFrame = (
+const useAnimate = (
   nextAnimationFrameHandler: (delta: number) => void,
   shouldAnimate = true
 ) => {
@@ -31,4 +31,4 @@ const useAnimationFrame = (
   }, [shouldAnimate]);
 };
 
-export default useAnimationFrame;
+export default useAnimate;

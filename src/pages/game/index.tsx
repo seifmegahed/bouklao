@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
 import MovingBackground from "../../components/MovingBackground";
 
-const movingBackgrounds = [
-  { image: "images/ground.png", speed: 0.2, offset: "0" },
-  { image: "images/buildings.png", speed: 0.1, offset: "10%" },
-  { image: "images/clouds.png", speed: 0.05, offset: "10%" },
-];
-
+const BASE_SPEED = 0.2;
 const WORLD_WIDTH = 100;
 const WORLD_HEIGHT = 30;
+
+const movingBackgrounds = [
+  { image: "images/clouds.png", speed: BASE_SPEED / 4, offset: "10%" },
+  { image: "images/buildings.png", speed: BASE_SPEED / 2, offset: "10%" },
+  { image: "images/ground.png", speed: BASE_SPEED, offset: "0" },
+];
 
 function Game() {
   const [worldToPixelScale, setWorldToPixelScale] = useState(
@@ -35,12 +36,13 @@ function Game() {
         width: `${worldToPixelScale * WORLD_WIDTH}px`,
       }}
     >
-      {movingBackgrounds.map((item) => (
+      {movingBackgrounds.map((item, index) => (
         <MovingBackground
           key={item.image}
           speed={item.speed}
           imageURL={item.image}
           bottomOffset={item.offset}
+          zIndex={index}
         />
       ))}
     </div>
