@@ -4,9 +4,11 @@ import Game from "./pages/game";
 
 function App() {
   return (
-    <div className="screen">
+    <div className="screen flex flex-col justify-between w-screen h-screen">
       <Navbar />
-      <Game />
+      <div className="flex items-center h-full">
+        <Game />
+      </div>
       <Footer />
     </div>
   );
