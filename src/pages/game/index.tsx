@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import MovingBackground from "../../components/MovingBackground";
+import Player from "./components/Player";
 
 const BASE_SPEED = 0.2;
 const WORLD_WIDTH = 100;
@@ -36,6 +37,7 @@ function Game() {
         width: `${worldToPixelScale * WORLD_WIDTH}px`,
       }}
     >
+      <Player lose={false} speed={BASE_SPEED} />
       {movingBackgrounds.map((item, index) => (
         <MovingBackground
           key={item.image}
