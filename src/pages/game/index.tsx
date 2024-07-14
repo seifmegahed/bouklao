@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import MovingBackground from "../../components/MovingBackground";
 import Player from "./components/Player";
+import Obstacles from "../../components/Obstacles";
+import useAnimate from "../../hooks/useAnimate";
 
-const BASE_SPEED = 0.2;
+const BASE_SPEED = 0.15;
 const WORLD_WIDTH = 100;
 const WORLD_HEIGHT = 30;
+const SPEED_INCREASE = 0.00002;
 
 const movingBackgrounds = [
   { image: "images/clouds.png", speed: BASE_SPEED / 4, offset: "10%" },
@@ -13,6 +16,7 @@ const movingBackgrounds = [
 ];
 
 function Game() {
+  let speedScale = 1;
   const [worldToPixelScale, setWorldToPixelScale] = useState(
     window.innerWidth / window.innerHeight < WORLD_WIDTH / WORLD_HEIGHT
       ? window.innerWidth / WORLD_WIDTH
@@ -29,6 +33,8 @@ function Game() {
     return () => window.removeEventListener("resize", setWorldScale);
   }, []);
 
+  useAnimate(() => (speedScale += SPEED_INCREASE));
+
   return (
     <div
       className={"relative overflow-hidden"}
@@ -38,6 +44,14 @@ function Game() {
       }}
     >
       <Player lose={false} speed={BASE_SPEED} />
+      <Obstacles
+        obstacleImages={[
+          "images/bottle1.png",
+          "images/bottle2.png",
+          "images/bottle3.png",
+        ]}
+        speed={BASE_SPEED}
+      />
       {movingBackgrounds.map((item, index) => (
         <MovingBackground
           key={item.image}

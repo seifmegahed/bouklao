@@ -9,8 +9,8 @@ const playerFrameImages = [
 ];
 const FRAME_TIME = 4;
 
-const GRAVITY = 0.02;
-const JUMP_SPEED = 1.6;
+const GRAVITY = 0.01;
+const JUMP_SPEED = 1.1;
 
 function Player(props: { speed: number; lose: boolean }) {
   const { speed, lose } = props;
@@ -62,6 +62,7 @@ function Player(props: { speed: number; lose: boolean }) {
       return;
     }
 
+    setPlayerPosition(2);
     if (currentFrameTime >= FRAME_TIME) {
       playerCurrentFrame = (playerCurrentFrame + 1) % playerFrameImages.length;
       setCurrentFrame(playerFrameImages[playerCurrentFrame]);
@@ -73,11 +74,9 @@ function Player(props: { speed: number; lose: boolean }) {
   useEffect(() => {
     document.addEventListener("keydown", handleKey);
     document.addEventListener("touchstart", handleTouch);
-    console.log("mounted");
     return () => {
       document.removeEventListener("keydown", handleKey);
       document.removeEventListener("touchstart", handleTouch);
-      console.log("unmounted");
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
