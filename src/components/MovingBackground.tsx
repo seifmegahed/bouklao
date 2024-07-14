@@ -8,12 +8,12 @@ function MovingBackground(props: {
   zIndex?: number;
 }) {
   const [framePositions, setFramePositions] = useState([0, 300]);
-
-  const update = (delta: number) => {
-    const factor = delta * props.speed * -1;
+  const { speed } = props;
+  const update = (delta: number, speedScale: number) => {
+    const factor = delta * speed * speedScale;
     setFramePositions((prev) =>
       prev.map((position) =>
-        position <= -300 ? position + 600 + factor : position + factor
+        position <= -300 ? position + 600 - factor : position - factor
       )
     );
   };

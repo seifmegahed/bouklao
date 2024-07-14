@@ -1,17 +1,21 @@
 import { useEffect, useRef } from "react";
 
+const SPEED_INCREASE = 0.0001;
+
 const useAnimate = (
-  nextAnimationFrameHandler: (delta: number) => void,
+  nextAnimationFrameHandler: (delta: number, speedScale: number) => void,
   shouldAnimate = true
 ) => {
   const frame = useRef(0);
+  const speedScale = useRef(1);
   let lastTime: number;
 
   const animate = () => {
     if (lastTime === undefined) {
       lastTime = frame.current;
     } else {
-      nextAnimationFrameHandler(frame.current - lastTime);
+      speedScale.current = speedScale.current + SPEED_INCREASE;
+      nextAnimationFrameHandler(frame.current - lastTime, speedScale.current);
       lastTime = frame.current;
     }
     frame.current = requestAnimationFrame(animate);
@@ -24,6 +28,7 @@ const useAnimate = (
     } else {
       // stop animation
       cancelAnimationFrame(frame.current);
+      speedScale.current = 1;
     }
 
     return () => cancelAnimationFrame(frame.current);

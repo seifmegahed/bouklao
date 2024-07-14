@@ -39,7 +39,7 @@ function Player(props: { speed: number; lose: boolean }) {
     }
   };
 
-  const updatePlayer = (delta: number) => {
+  const updatePlayer = (delta: number, speedScale: number) => {
     if (isJumping) {
       setCurrentFrame(playerJumpingImage);
       yVelocity -= GRAVITY * delta;
@@ -63,7 +63,7 @@ function Player(props: { speed: number; lose: boolean }) {
     }
 
     setPlayerPosition(2);
-    if (currentFrameTime >= FRAME_TIME) {
+    if (currentFrameTime >= FRAME_TIME * speedScale) {
       playerCurrentFrame = (playerCurrentFrame + 1) % playerFrameImages.length;
       setCurrentFrame(playerFrameImages[playerCurrentFrame]);
       currentFrameTime -= FRAME_TIME;

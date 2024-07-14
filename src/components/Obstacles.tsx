@@ -22,13 +22,13 @@ function Obstacles(props: { obstacleImages: string[]; speed: number }) {
     OBSTACLE_INTERVAL_MAX
   );
 
-  const updateObstacles = (delta: number) => {
+  const updateObstacles = (delta: number, speedScale: number) => {
     setCurrentObstacles((prev) => {
       const newObstacles: obstacle_t[] = [];
 
       for (let i = 0; i < prev.length; i++) {
         const obstacle = prev[i];
-        obstacle.position -= (delta * props.speed/2);
+        obstacle.position -= (delta * (props.speed * speedScale) / 2);
         if (obstacle.position > OUT_OF_BOUNDS) newObstacles.push(obstacle);
       }
 

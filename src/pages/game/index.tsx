@@ -7,7 +7,6 @@ import useAnimate from "../../hooks/useAnimate";
 const BASE_SPEED = 0.15;
 const WORLD_WIDTH = 100;
 const WORLD_HEIGHT = 30;
-const SPEED_INCREASE = 0.00002;
 
 const movingBackgrounds = [
   { image: "images/clouds.png", speed: BASE_SPEED / 4, offset: "10%" },
@@ -16,7 +15,6 @@ const movingBackgrounds = [
 ];
 
 function Game() {
-  let speedScale = 1;
   const [worldToPixelScale, setWorldToPixelScale] = useState(
     window.innerWidth / window.innerHeight < WORLD_WIDTH / WORLD_HEIGHT
       ? window.innerWidth / WORLD_WIDTH
@@ -28,12 +26,16 @@ function Game() {
       ? setWorldToPixelScale(window.innerWidth / WORLD_WIDTH)
       : setWorldToPixelScale(window.innerHeight / WORLD_HEIGHT);
 
+      const updateGame = () => {
+  };
+
   useEffect(() => {
     window.addEventListener("resize", setWorldScale);
     return () => window.removeEventListener("resize", setWorldScale);
   }, []);
 
-  useAnimate(() => (speedScale += SPEED_INCREASE));
+  useAnimate(updateGame);
+
 
   return (
     <div
