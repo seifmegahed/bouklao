@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { RefObject, useEffect, useState } from "react";
 import useAnimate from "../hooks/useAnimate";
 
 const OBSTACLE_INTERVAL_MIN = 400;
@@ -14,7 +14,13 @@ function randomNumberBetween(min: number, max: number) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-function Obstacles(props: { obstacleImages: string[]; speed: number }) {
+function Obstacles(props: {
+  obstacleImages: string[];
+  speed: number;
+  gameState: boolean;
+  obstaclesRef: RefObject<HTMLDivElement>;
+}) {
+  const { gameState } = props;
   const [currentObstacles, setCurrentObstacles] = useState<obstacle_t[]>([]);
 
   let nextObstacleInterval = randomNumberBetween(
@@ -28,7 +34,7 @@ function Obstacles(props: { obstacleImages: string[]; speed: number }) {
 
       for (let i = 0; i < prev.length; i++) {
         const obstacle = prev[i];
-        obstacle.position -= (delta * (props.speed * speedScale) / 2);
+        obstacle.position -= (delta * (props.speed * speedScale)) / 2;
         if (obstacle.position > OUT_OF_BOUNDS) newObstacles.push(obstacle);
       }
 
@@ -50,10 +56,16 @@ function Obstacles(props: { obstacleImages: string[]; speed: number }) {
     });
   };
 
-  useAnimate(updateObstacles);
+  useAnimate(updateObstacles, gameState);
+
+  useEffect(() => {
+    if (gameState) {
+      setCurrentObstacles([]);
+    }
+  }, [gameState]);
 
   return (
-    <>
+    <div ref={props.obstaclesRef}>
       {currentObstacles.map((obstacle, index) => (
         <img
           key={obstacle.image + index}
@@ -62,7 +74,7 @@ function Obstacles(props: { obstacleImages: string[]; speed: number }) {
           style={{ left: `${obstacle.position}%` }}
         />
       ))}
-    </>
+    </div>
   );
 }
 

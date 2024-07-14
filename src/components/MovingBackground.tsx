@@ -5,10 +5,11 @@ function MovingBackground(props: {
   speed: number;
   imageURL: string;
   bottomOffset: string;
+  gameState: boolean;
   zIndex?: number;
 }) {
   const [framePositions, setFramePositions] = useState([0, 300]);
-  const { speed } = props;
+  const { speed, gameState } = props;
   const update = (delta: number, speedScale: number) => {
     const factor = delta * speed * speedScale;
     setFramePositions((prev) =>
@@ -18,7 +19,7 @@ function MovingBackground(props: {
     );
   };
 
-  useAnimate(update, true);
+  useAnimate(update, gameState);
 
   return (
     <>

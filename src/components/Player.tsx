@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { RefObject, useEffect, useState } from "react";
 import useAnimate from "../hooks/useAnimate";
 
 const playerLoseImage = "images/player-lose.png";
@@ -12,8 +12,13 @@ const FRAME_TIME = 4;
 const GRAVITY = 0.01;
 const JUMP_SPEED = 1.1;
 
-function Player(props: { speed: number; lose: boolean }) {
-  const { speed, lose } = props;
+function Player(props: {
+  speed: number;
+  lose: boolean;
+  gameState: boolean;
+  playerRef: RefObject<HTMLImageElement>;
+}) {
+  const { speed, lose, gameState } = props;
 
   let currentFrameTime = 0;
   let playerCurrentFrame = 0;
@@ -38,6 +43,12 @@ function Player(props: { speed: number; lose: boolean }) {
       isJumping = true;
     }
   };
+
+  useEffect(() => {
+    if (lose) {
+      setCurrentFrame(playerLoseImage);
+    }
+  }, [lose]);
 
   const updatePlayer = (delta: number, speedScale: number) => {
     if (isJumping) {
@@ -81,10 +92,11 @@ function Player(props: { speed: number; lose: boolean }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useAnimate(updatePlayer);
+  useAnimate(updatePlayer, gameState);
 
   return (
     <img
+      ref={props.playerRef}
       src={currentFrame}
       className="player absolute left-6 bottom-0 z-10 h-[50%]"
       style={{ bottom: `calc(${playerPosition + 2} * 1%)` }}
