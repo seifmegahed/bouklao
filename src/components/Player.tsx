@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import useAnimate from "../../../hooks/useAnimate";
+import useAnimate from "../hooks/useAnimate";
 
 const playerLoseImage = "images/player-lose.png";
 const playerJumpingImage = "images/player-jumping.png";

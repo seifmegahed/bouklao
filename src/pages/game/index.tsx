@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import MovingBackground from "../../components/MovingBackground";
-import Player from "./components/Player";
+import Player from "../../components/Player";
 import Obstacles from "../../components/Obstacles";
 import useAnimate from "../../hooks/useAnimate";
 
