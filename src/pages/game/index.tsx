@@ -26,8 +26,11 @@ function isCollision(rect1: DOMRect, rect2: DOMRect) {
 }
 
 function Game() {
-  const [gameState, setGameState] = useState(true);
+  const [gameState, setGameState] = useState(false);
   const [score, setScore] = useState(0);
+  const [topScore, setTopScore] = useState(
+    Number(localStorage.getItem("topScore") || 0)
+  );
   const [lose, setLose] = useState(false);
   const obstaclesRef = useRef<HTMLDivElement>(null);
   const playerRef = useRef<HTMLDivElement>(null);
@@ -75,11 +78,17 @@ function Game() {
   };
 
   useEffect(() => {
-    if (!gameState)
+    if (!gameState) {
       setTimeout(() => {
         window.addEventListener("keyup", startGame, { once: true });
       }, 100);
-    else setScore(0);
+      if (score > topScore) {
+        setTopScore(score);
+        localStorage.setItem("topScore", score.toString());
+      }
+    } else {
+      setScore(0);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gameState]);
 
@@ -101,7 +110,10 @@ function Game() {
         }px`,
       }}
     >
-      <div className="w-full text-right text-2xl font-bold z-10 absolute top-0 p-5">{Math.round(score)}</div>
+      <div className="w-full text-right lg:text-lg text-[2vw] font-bold z-10 absolute top-0 p-3">
+        <p>Top: {Math.round(topScore)}</p>
+        <p>Score: {Math.round(score)}</p>
+      </div>
       <Player
         lose={lose}
         speed={BASE_SPEED}
