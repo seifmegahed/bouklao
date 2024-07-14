@@ -1,5 +1,5 @@
 # Bouklao web app
-Web app for [text link with title](https://www.instagram.com/bouklao "@bouklao")
+Web app for [@bouklao](https://www.instagram.com/bouklao) 
 
 ### Game
 Chrome dino clone
