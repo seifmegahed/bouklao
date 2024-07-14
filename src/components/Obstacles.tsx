@@ -70,7 +70,7 @@ function Obstacles(props: {
         <img
           key={obstacle.image + index}
           src={obstacle.image}
-          className="absolute z-10 h-[25%] bottom-[4%]"
+          className="absolute z-10 h-[25%] bottom-[4%] border border-black"
           style={{ left: `${obstacle.position}%` }}
         />
       ))}

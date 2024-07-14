@@ -24,10 +24,10 @@ function isCollision(rect1: DOMRect, rect2: DOMRect) {
 }
 
 function Game() {
-  const [gameState, setGameState] = useState(false);
+  const [gameState, setGameState] = useState(true);
   const [lose, setLose] = useState(false);
   const obstaclesRef = useRef<HTMLDivElement>(null);
-  const playerRef = useRef<HTMLImageElement>(null);
+  const playerRef = useRef<HTMLDivElement>(null);
   const [worldToPixelScale, setWorldToPixelScale] = useState(
     window.innerWidth / window.innerHeight < WORLD_WIDTH / WORLD_HEIGHT
       ? window.innerWidth / WORLD_WIDTH
@@ -60,6 +60,23 @@ function Game() {
     return () => window.removeEventListener("resize", setWorldScale);
   }, []);
 
+  const startGame = (event: KeyboardEvent) => {
+    if (event.code === "Space") {
+      setGameState(!gameState);
+      setLose(false);
+    } else {
+      window.addEventListener("keyup", startGame, { once: true });
+    }
+  };
+
+  useEffect(() => {
+    if (!gameState)
+      setTimeout(() => {
+        window.addEventListener("keyup", startGame, { once: true });
+      }, 100);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [gameState]);
+
   useAnimate(updateGame);
 
   return (
@@ -70,15 +87,6 @@ function Game() {
         width: `${worldToPixelScale * WORLD_WIDTH}px`,
       }}
     >
-      <button
-        className="absolute top-0 right-0 z-30 rounded-md bg-red-500 px-4 py-2 text-white"
-        onClick={() => {
-          setGameState(!gameState);
-          setLose(false);
-        }}
-      >
-        {gameState ? "Pause" : "Resume"}
-      </button>
       <Player
         lose={lose}
         speed={BASE_SPEED}
