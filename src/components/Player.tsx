@@ -97,13 +97,13 @@ function Player(props: {
   return (
     <>
       <div
-        className="absolute left-10 z-10 h-[25%] border border-black overflow-visible w-[7%]"
+        className="absolute left-[4%] z-10 h-[25%] border border-black overflow-visible w-[7%]"
         style={{ bottom: `calc(${playerPosition + 2} * 1%)` }}
         ref={props.playerRef}
       ></div>
       <img
         src={currentFrame}
-        className="player absolute left-6 bottom-0 z-10 h-[40%]"
+        className="player absolute left-[3%] bottom-0 z-10 h-[40%]"
         style={{ bottom: `calc(${playerPosition + 2} * 1%)` }}
       />
     </>

@@ -4,9 +4,9 @@ import Game from "./pages/game";
 
 function App() {
   return (
-    <div className="screen flex flex-col justify-between w-screen h-screen">
+    <div className="screen flex flex-col justify-between w-screen h-screen max-h-screen overflow-hidden">
       <Navbar />
-      <div className="flex items-center h-full">
+      <div className="flex items-center justify-center">
         <Game />
       </div>
       <Footer />

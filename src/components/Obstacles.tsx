@@ -1,8 +1,8 @@
 import { RefObject, useEffect, useState } from "react";
 import useAnimate from "../hooks/useAnimate";
 
-const OBSTACLE_INTERVAL_MIN = 400;
-const OBSTACLE_INTERVAL_MAX = 800;
+const OBSTACLE_INTERVAL_MIN = 450;
+const OBSTACLE_INTERVAL_MAX = 500;
 const OUT_OF_BOUNDS = -10;
 
 type obstacle_t = {

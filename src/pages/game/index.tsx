@@ -8,6 +8,8 @@ const BASE_SPEED = 0.15;
 const WORLD_WIDTH = 100;
 const WORLD_HEIGHT = 30;
 
+const MAX_WORLD_SCALE = 10;
+
 const movingBackgrounds = [
   { image: "images/clouds.png", speed: BASE_SPEED / 4, offset: "10%" },
   { image: "images/buildings.png", speed: BASE_SPEED / 2, offset: "10%" },
@@ -83,8 +85,16 @@ function Game() {
     <div
       className={"relative overflow-hidden"}
       style={{
-        height: `${worldToPixelScale * WORLD_HEIGHT}px`,
-        width: `${worldToPixelScale * WORLD_WIDTH}px`,
+        height: `${
+          (worldToPixelScale > MAX_WORLD_SCALE
+            ? MAX_WORLD_SCALE
+            : worldToPixelScale) * WORLD_HEIGHT
+        }px`,
+        width: `${
+          (worldToPixelScale > MAX_WORLD_SCALE
+            ? MAX_WORLD_SCALE
+            : worldToPixelScale) * WORLD_WIDTH
+        }px`,
       }}
     >
       <Player
