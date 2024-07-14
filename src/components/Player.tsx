@@ -97,7 +97,7 @@ function Player(props: {
   return (
     <>
       <div
-        className="absolute left-[4%] z-10 h-[25%] border border-black overflow-visible w-[7%]"
+        className="absolute left-[4%] z-10 h-[25%] overflow-visible w-[7%]"
         style={{ bottom: `calc(${playerPosition + 2} * 1%)` }}
         ref={props.playerRef}
       ></div>

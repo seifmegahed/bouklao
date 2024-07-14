@@ -1,5 +1,4 @@
 import Footer from "./components/Footer";
-import Modal from "./components/Modal";
 import Navbar from "./components/Navbar";
 import Game from "./pages/game";
 
@@ -11,9 +10,6 @@ function App() {
         <Game />
       </div>
       <Footer />
-      <Modal isOpen={true} onClose={() => {}}>
-        Modal
-      </Modal>
     </div>
   );
 }
