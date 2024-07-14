@@ -27,6 +27,7 @@ function isCollision(rect1: DOMRect, rect2: DOMRect) {
 
 function Game() {
   const [gameState, setGameState] = useState(true);
+  const [score, setScore] = useState(0);
   const [lose, setLose] = useState(false);
   const obstaclesRef = useRef<HTMLDivElement>(null);
   const playerRef = useRef<HTMLDivElement>(null);
@@ -41,7 +42,9 @@ function Game() {
       ? setWorldToPixelScale(window.innerWidth / WORLD_WIDTH)
       : setWorldToPixelScale(window.innerHeight / WORLD_HEIGHT);
 
-  const updateGame = () => {
+  const updateGame = (delta: number, speedScale: number) => {
+    setScore((prev) => prev + (delta * speedScale) / 70.0);
+
     if (obstaclesRef?.current?.children && playerRef?.current) {
       [...obstaclesRef.current.children].forEach((child) => {
         if (
@@ -76,10 +79,11 @@ function Game() {
       setTimeout(() => {
         window.addEventListener("keyup", startGame, { once: true });
       }, 100);
+    else setScore(0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gameState]);
 
-  useAnimate(updateGame);
+  useAnimate(updateGame, gameState);
 
   return (
     <div
@@ -97,6 +101,7 @@ function Game() {
         }px`,
       }}
     >
+      <div className="w-full text-right text-2xl font-bold z-10 absolute top-0 p-5">{Math.round(score)}</div>
       <Player
         lose={lose}
         speed={BASE_SPEED}
