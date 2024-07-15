@@ -31,3 +31,13 @@ body {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.spinner_ajPY {
+  transform-origin: center;
+  animation: spinner_AtaB 0.5s infinite linear;
+}
+@keyframes spinner_AtaB {
+  100% {
+    transform: rotate(360deg);
+  }
+}
