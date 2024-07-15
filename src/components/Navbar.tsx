@@ -1,29 +1,36 @@
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import Modal from "./Modal";
 import ScoreBoard from "./ScoreBoard";
 import { data } from "../.test/data";
+import Login from "./Login";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [modalType, setModalType] = useState<"Score" | "Login">("Score");
+  const [activeItem, setActiveItem] = useState<{
+    component: ReactNode;
+    title: string;
+  }>();
   return (
     <>
-      <Modal title={modalType} isOpen={isOpen} onClose={() => setIsOpen(false)}>
-        <>
-          {modalType === "Score" ? (
-            <ScoreBoard data={data} />
-          ) : (
-            <div>Login</div>
-          )}
-        </>
-      </Modal>
+      {activeItem && (
+        <Modal
+          title={activeItem.title}
+          isOpen={isOpen}
+          onClose={() => setIsOpen(false)}
+        >
+          {activeItem.component}
+        </Modal>
+      )}
       <div className="flex justify-end w-screen">
         <div className="flex">
           <div
             className="p-5 text-xl hover:bg-black/10 cursor-pointer"
             onClick={() => {
               setIsOpen(true);
-              setModalType("Score");
+              setActiveItem({
+                component: <ScoreBoard data={data} />,
+                title: "Score Board",
+              });
             }}
           >
             Score Board
@@ -32,7 +39,10 @@ function Navbar() {
             className="p-5 text-xl hover:bg-black/10 cursor-pointer"
             onClick={() => {
               setIsOpen(true);
-              setModalType("Login");
+              setActiveItem({
+                component: <Login />,
+                title: "Login",
+              });
             }}
           >
             Login
