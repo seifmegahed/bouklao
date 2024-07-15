@@ -54,10 +54,7 @@ function UserPage({ onClose }: { onClose: () => void }) {
     <>
       <Loading state={loading} />
       <div className="grid md:grid-cols-2 gap-4 overflow-y-scroll">
-        <div
-          className="md:row-span-3 flex items-center justify-center"
-          onClick={handleLogout}
-        >
+        <div className="md:row-span-3 flex items-center justify-center">
           <CatIcon size={"250"} />
         </div>
         <InputField
@@ -68,20 +65,8 @@ function UserPage({ onClose }: { onClose: () => void }) {
           errorMessage={error}
           disabled={!newUser}
         />
-        <InputField
-          label="Name"
-          disabled
-          value={user!.name}
-          onChange={() => {}}
-          error={false}
-        />
-        <InputField
-          label="Top Score"
-          disabled
-          value={user!.score + ""}
-          onChange={() => {}}
-          error={false}
-        />
+        <InputField label="Name" disabled value={user!.name} />
+        <InputField label="Top Score" disabled value={user!.score + ""} />
         <div className="md:col-span-2 flex justify-end">
           {newUser ? (
             <Button onClick={handleSave} disabled={alias === user!.alias}>
