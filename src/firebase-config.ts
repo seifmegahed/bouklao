@@ -1,13 +1,12 @@
 import { initializeApp } from "firebase/app";
-
 import { initializeFirestore } from "@firebase/firestore";
+
 import {
   browserPopupRedirectResolver,
   browserSessionPersistence,
   initializeAuth,
 } from "firebase/auth";
 import { initializeAppCheck, ReCaptchaV3Provider } from "firebase/app-check";
-import { getStorage } from "firebase/storage";
 
 export const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_APIKEY,
@@ -28,7 +27,6 @@ export const auth = initializeAuth(app, {
 export const firestore = initializeFirestore(app, {
   experimentalAutoDetectLongPolling: true,
 });
-export const storage = getStorage(app);
 
 export const appCheck = initializeAppCheck(app, {
   provider: new ReCaptchaV3Provider(import.meta.env.VITE_FIREBASE_APPCHECKKEY),

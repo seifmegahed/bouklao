@@ -1,6 +1,6 @@
 import ReactDOM from "react-dom";
 
-export default function Loading({ state }: { state: boolean }) {
+export default function Loading({ state = true }: { state?: boolean }) {
   if (!state) {
     return null;
   }

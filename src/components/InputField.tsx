@@ -6,6 +6,7 @@ export default function InputField(props: {
   onChange: (value: string) => void;
   textField?: boolean;
   disabled?: boolean;
+  errorMessage?: string;
 }) {
   return (
     <div className="w-full relative flex flex-col">
@@ -40,7 +41,11 @@ export default function InputField(props: {
       >
         {props.label}
       </div>
-      <div className={`text-xs px-2 text-red-500 ${!props.error && "invisible"}`}>Required</div>  
+      <div
+        className={`text-xs px-2 text-red-500 ${!props.error && "invisible"}`}
+      >
+        {props.errorMessage ?? "Required"}
+      </div>
     </div>
   );
 }

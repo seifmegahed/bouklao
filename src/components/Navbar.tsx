@@ -1,10 +1,12 @@
 import { ReactNode, useEffect, useMemo, useState } from "react";
-import Modal from "./Modal";
-import ScoreBoard from "./ScoreBoard";
-import { data } from "../.test/data";
-import Login from "./Login";
+
 import { useAuth } from "../context/authContext";
+import { data } from "../.test/data";
+
+import Modal from "./Modal";
+import Login from "./Login";
 import UserPage from "./UserPage";
+import ScoreBoard from "./ScoreBoard";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
