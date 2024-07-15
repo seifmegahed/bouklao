@@ -1,10 +1,20 @@
 import { useContext, createContext } from "react";
 
-import { Auth, User, UserCredential } from "firebase/auth";
+import { Auth, UserCredential } from "firebase/auth";
+
+export type UserData = {
+  uid: string;
+  name: string;
+  alias: string;
+  score: number;
+  color: string;
+};
 
 export type AuthContextModel = {
   auth: Auth;
-  user: User | null;
+  user: UserData | null;
+  newUser: boolean;
+  updateUser: (user: UserData) => Promise<void>;
   login: () => Promise<UserCredential>;
   logout: () => Promise<void>;
 };
