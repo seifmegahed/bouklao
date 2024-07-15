@@ -1,24 +1,55 @@
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useEffect, useMemo, useState } from "react";
 import Modal from "./Modal";
 import ScoreBoard from "./ScoreBoard";
 import { data } from "../.test/data";
 import Login from "./Login";
 import { useAuth } from "../context/authContext";
+import UserPage from "./UserPage";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const { user, logout } = useAuth();
+  const { user, newUser } = useAuth();
 
   const [activeItem, setActiveItem] = useState<{
     component: ReactNode;
     title: string;
   }>();
 
+  const userPageObject = useMemo(() => {
+    return {
+      title: "User Page",
+      component: (
+        <UserPage
+          onClose={() => {
+            setIsOpen(false);
+          }}
+        />
+      ),
+    };
+  }, []);
+
+  const loginPageObject = {
+    title: "Sign in",
+    component: <Login />,
+  };
+
+  const scoreBoardPageObject = {
+    title: "Score Board",
+    component: <ScoreBoard data={data} />,
+  };
+
   useEffect(() => {
     if (user && activeItem?.title === "Sign in") {
       setIsOpen(false);
     }
   }, [user, activeItem]);
+
+  useEffect(() => {
+    if (newUser && user) {
+      setIsOpen(true);
+      setActiveItem(userPageObject);
+    }
+  }, [newUser, user, userPageObject]);
 
   return (
     <>
@@ -33,39 +64,30 @@ function Navbar() {
       )}
       <div className="flex justify-end w-screen">
         <div className="flex">
-          <div
-            className="p-5 text-xl hover:bg-black/10 cursor-pointer"
-            onClick={() => {
-              setIsOpen(true);
-              setActiveItem({
-                component: <ScoreBoard data={data} />,
-                title: "Score Board",
-              });
-            }}
-          >
-            Score Board
-          </div>
-          {user ? (
+          {user && (
             <div
-              className="p-5 text-xl hover:bg-black/10 cursor-pointer"
-              onClick={logout}
-            >
-              Sign out
-            </div>
-          ) : (
-            <div
-              className="p-5 text-xl hover:bg-black/10 cursor-pointer"
+              className="p-5 text-2xl font-bold text-gray-700 hover:bg-black/10 cursor-pointer"
               onClick={() => {
+                setActiveItem(scoreBoardPageObject);
                 setIsOpen(true);
-                setActiveItem({
-                  component: <Login />,
-                  title: "Sign in",
-                });
               }}
             >
-              Sign in
+              Score Board
             </div>
           )}
+          <div
+            className="p-5 text-2xl font-bold text-gray-700 hover:bg-black/10 cursor-pointer"
+            onClick={() => {
+              setActiveItem(user ? userPageObject : loginPageObject);
+              setIsOpen(true);
+            }}
+          >
+            {user
+              ? user.alias === ""
+                ? user.name.replace(" ", "")
+                : user.alias
+              : "Sign in"}
+          </div>
         </div>
       </div>
     </>
