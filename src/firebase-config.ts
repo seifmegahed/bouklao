@@ -2,9 +2,9 @@ import { initializeApp } from "firebase/app";
 
 import { initializeFirestore } from "@firebase/firestore";
 import {
-  indexedDBLocalPersistence,
-  initializeAuth,
+  browserPopupRedirectResolver,
   browserSessionPersistence,
+  initializeAuth,
 } from "firebase/auth";
 import { initializeAppCheck, ReCaptchaV3Provider } from "firebase/app-check";
 import { getStorage } from "firebase/storage";
@@ -19,11 +19,10 @@ export const firebaseConfig = {
   measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENTID,
 };
 
-const isDev = import.meta.env.MODE !== "production";
-
 export const app = initializeApp(firebaseConfig);
 export const auth = initializeAuth(app, {
-  persistence: isDev ? browserSessionPersistence : indexedDBLocalPersistence,
+  persistence: browserSessionPersistence,
+  popupRedirectResolver: browserPopupRedirectResolver,
 });
 
 export const firestore = initializeFirestore(app, {

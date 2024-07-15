@@ -1,8 +1,7 @@
 import { auth, firestore } from "../firebase-config";
-import { useState, useEffect, ReactNode } from "react";
+import { useState, ReactNode } from "react";
 import { AuthContextModel, AuthContext, UserData } from "./authContext";
 import {
-  onAuthStateChanged,
   GoogleAuthProvider,
   signInWithPopup,
   signOut,
@@ -25,7 +24,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [newUser, setNewUser] = useState(true);
 
   const value: AuthContextModel = {
-    auth: auth,
     user: currentUser,
     newUser: newUser,
     updateUser,
@@ -35,11 +33,26 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   async function login() {
     const provider = new GoogleAuthProvider();
-    return await signInWithPopup(auth, provider);
+    return await signInWithPopup(auth, provider).then(({ user }) => {
+      getDoc(doc(userCollection, user.uid)).then((doc) => {
+        if (doc.exists()) {
+          const documentData = doc.data();
+          console.log(documentData);
+          setCurrentUser(documentData as UserData);
+          setNewUser(false);
+        } else {
+          setCurrentUser(() => initUser(user));
+          setNewUser(true);
+        }
+      });
+      return user;
+    });
   }
 
   async function logout() {
-    return await signOut(auth);
+    return await signOut(auth).then(() => {
+      setCurrentUser(null);
+    });
   }
 
   async function updateUser(user: UserData) {
@@ -47,26 +60,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setNewUser(false);
     return await setDoc(doc(userCollection, user.uid), user);
   }
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        getDoc(doc(userCollection, user.uid)).then((doc) => {
-          if (doc.exists()) {
-            const documentData = doc.data();
-            console.log(documentData);
-            setCurrentUser(documentData as UserData);
-            setNewUser(false);
-          } else {
-            setCurrentUser(() => initUser(user));
-            setNewUser(true);
-          }
-        });
-      }
-    });
-
-    return unsubscribe;
-  }, []);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

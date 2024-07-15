@@ -1,10 +1,25 @@
+import { useState } from "react";
+import { useAuth } from "../context/authContext";
 import GoogleLoginButton from "./GoogleLoginButton";
 import Loading from "./Loading";
 
 function Login() {
+  const [loading, setLoading] = useState(false);
+  const { login } = useAuth();
+
+  const handleLogin = () => {
+    setLoading(true);
+    login()
+      .catch((error) => {
+        console.error(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
   return (
     <>
-      <Loading state={true} />
+      <Loading state={loading} />
       <div className="flex flex-col items-center w-full h-full text-wrap text-2xl">
         <div className="flex flex-col text-center max-w-68 sm:pb-10 pt-10 text-gray-500 text-sm">
           <p>
@@ -15,7 +30,7 @@ function Login() {
           <p>You can sign in with your Google account.</p>
         </div>
         <div className="flex items-center justify-center w-full p-10">
-          <GoogleLoginButton />
+          <GoogleLoginButton onClick={handleLogin} />
         </div>
         <div className="flex flex-col text-center justify-center text-xs max-w-68 text-gray-500">
           <p>
