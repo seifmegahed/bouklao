@@ -2,6 +2,10 @@ import {
   collection,
   doc,
   getDoc,
+  getDocs,
+  limit,
+  orderBy,
+  query,
   runTransaction,
   setDoc,
   updateDoc,
@@ -15,6 +19,13 @@ const scoreCollection = collection(firestore, "scores");
 const helpersCollection = collection(firestore, "helpers");
 
 const aliasesDoc = doc(helpersCollection, "aliases");
+
+type UserAppDataType = {
+  uid: string;
+  alias: string;
+  score: number;
+  color: string;
+};
 
 export async function getAliases() {
   const _aliasesDoc = await getDoc(aliasesDoc);
@@ -62,3 +73,16 @@ export const updateUserScore = async (uid: string, score: number) =>
   await updateDoc(doc(scoreCollection, uid), {
     score: score,
   }).then(() => score);
+
+export const getTopScores = async (
+  amount: number
+): Promise<UserAppDataType[]> => {
+  const q = query(scoreCollection, orderBy("score", "desc"), limit(amount));
+  const snapshot = await getDocs(q);
+  return snapshot.docs.map((doc) => ({
+    uid: doc.id,
+    score: doc.data()!.score,
+    alias: doc.data()!.alias,
+    color: doc.data()!.color,
+  }));
+};

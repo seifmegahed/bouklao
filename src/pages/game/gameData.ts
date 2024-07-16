@@ -1,7 +1,9 @@
+// World
 export const WORLD_WIDTH = 100;
 export const WORLD_HEIGHT = 30;
 export const MAX_WORLD_SCALE = 10;
 
+// Game
 export const BASE_SPEED = 0.15;
 
 // Player
@@ -9,6 +11,7 @@ export const PLAYER_FRAME_TIME = 4;
 export const GRAVITY = 0.01;
 export const JUMP_SPEED = 1.1;
 
+// Obstacles
 export const OBSTACLE_INTERVAL_MIN = 450;
 export const OBSTACLE_INTERVAL_MAX = 500;
 export const OUT_OF_BOUNDS = -10;
