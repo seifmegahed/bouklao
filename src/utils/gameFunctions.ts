@@ -96,7 +96,7 @@ export const updateObstaclePositions = (
   const newObstacles: obstacle_t[] = [];
   for (let i = 0; i < obstacles.length; i++) {
     const obstacle = obstacles[i];
-    obstacle.position -= delta / 2;
+    obstacle.position -= delta;
     newObstacles.push(obstacle);
   }
   return newObstacles;
