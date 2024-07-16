@@ -1,16 +1,12 @@
 import { RefObject, useEffect, useState } from "react";
 import useAnimate from "../hooks/useAnimate";
-
-const playerLoseImage = "images/player-lose.png";
-const playerJumpingImage = "images/player-jumping.png";
-const playerFrameImages = [
-  "images/player-run-0.png",
-  "images/player-run-1.png",
-];
-const FRAME_TIME = 4;
-
-const GRAVITY = 0.01;
-const JUMP_SPEED = 1.1;
+import {
+  GRAVITY,
+  JUMP_SPEED,
+  playerFrameImages,
+  playerLoseImage,
+} from "../pages/game/gameData";
+import { getPlayerFrame } from "../utils/gameFunctions";
 
 function Player(props: {
   speed: number;
@@ -20,66 +16,41 @@ function Player(props: {
 }) {
   const { speed, lose, gameState } = props;
 
-  let currentFrameTime = 0;
-  let playerCurrentFrame = 0;
   let isJumping = false;
   let yVelocity = 0;
 
   const [playerPosition, setPlayerPosition] = useState(2);
-  const [currentFrame, setCurrentFrame] = useState(
-    playerFrameImages[playerCurrentFrame]
-  );
+  const [currentFrame, setCurrentFrame] = useState(playerFrameImages[0]);
 
   const handleTouch = () => {
-    if (!isJumping) {
-      yVelocity = JUMP_SPEED;
-      isJumping = true;
-    }
+    if (isJumping) return;
+    yVelocity = JUMP_SPEED;
+    isJumping = true;
   };
 
   const handleKey = (e: KeyboardEvent) => {
-    if (e.code === ("Space" || "ArrowUp") && !isJumping) {
-      yVelocity = JUMP_SPEED;
-      isJumping = true;
-    }
+    if (e.code !== ("Space" || "ArrowUp") || isJumping) return;
+    yVelocity = JUMP_SPEED;
+    isJumping = true;
   };
 
   useEffect(() => {
-    if (lose) {
-      setCurrentFrame(playerLoseImage);
-    }
+    if (lose) setCurrentFrame(playerLoseImage);
   }, [lose]);
 
   const updatePlayer = (delta: number, speedScale: number) => {
-    if (isJumping) {
-      setCurrentFrame(playerJumpingImage);
-      yVelocity -= GRAVITY * delta;
-
-      setPlayerPosition((prev) => {
-        let factor = prev + yVelocity * delta;
-        if (factor <= 0) {
-          yVelocity = 0;
-          isJumping = false;
-          factor = 0;
-        }
-        return factor;
-      });
-
+    setCurrentFrame(getPlayerFrame(delta, isJumping, speedScale, speed));
+    if (!isJumping) {
+      setPlayerPosition(2);
       return;
     }
+    yVelocity -= GRAVITY * delta;
 
-    if (lose) {
-      setCurrentFrame(playerLoseImage);
-      return;
-    }
-
-    setPlayerPosition(2);
-    if (currentFrameTime >= FRAME_TIME * speedScale) {
-      playerCurrentFrame = (playerCurrentFrame + 1) % playerFrameImages.length;
-      setCurrentFrame(playerFrameImages[playerCurrentFrame]);
-      currentFrameTime -= FRAME_TIME;
-    }
-    currentFrameTime += delta * speed;
+    setPlayerPosition((prev) => {
+      const factor = prev + yVelocity * delta;
+      if (factor <= 0) isJumping = false;
+      return factor;
+    });
   };
 
   useEffect(() => {

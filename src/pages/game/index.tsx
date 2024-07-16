@@ -44,11 +44,18 @@ function Game() {
     });
   };
 
-  const startGame = (event: KeyboardEvent) => {
+  const startGameTouch = () => {
+    document.removeEventListener("keyup", startGameKeyboard);
+    setGameState(true);
+    setLose(false);
+  };
+
+  const startGameKeyboard = (event: KeyboardEvent) => {
     if (event.code !== "Space") {
-      window.addEventListener("keyup", startGame, { once: true });
+      document.addEventListener("keyup", startGameKeyboard, { once: true });
       return;
     }
+    document.removeEventListener("touchend", startGameTouch);
     setGameState(true);
     setLose(false);
   };
@@ -60,14 +67,15 @@ function Game() {
     }
 
     setTimeout(() => {
-      window.addEventListener("keyup", startGame, { once: true });
+      document.addEventListener("keyup", startGameKeyboard, { once: true });
+      document.addEventListener("touchstart", startGameTouch, { once: true });
     }, 200);
 
     if (score < topScore) return;
 
-    updateTopScore(localStorage, user, score)
-      .then((score) => {
-        setTopScore(score);
+    updateTopScore(localStorage, user, Math.round(score))
+      .then((_score) => {
+        setTopScore(_score);
       })
       .catch((error) => {
         console.log(error);
