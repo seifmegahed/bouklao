@@ -3,8 +3,6 @@ import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import Game from "./pages/game";
 import Loading from "./components/Loading";
-// import { Analytics } from "firebase/analytics";
-// import { analytics } from "./firebase-config";
 
 const allImages = [
   "images/bottle1.png",
@@ -20,17 +18,10 @@ const allImages = [
   "https://utfs.io/f/9076bf45-4d29-49ab-9835-4c863f3c63fa-1zbfv.png",
 ];
 
-// declare global {
-//   interface Window {
-//     analytics: Analytics;
-//   }
-// }
-
 function App() {
   const [isLoaded, setIsLoaded] = useState(0);
 
   useEffect(() => {
-    // window.analytics = analytics;
     const images = allImages.map(() => new Image());
     images.forEach((image, index) => {
       image.onload = () => setIsLoaded((prev) => prev + 1);
