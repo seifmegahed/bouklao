@@ -1,7 +1,6 @@
 import { ReactNode, useEffect, useMemo, useState } from "react";
 
 import { useAuth } from "../context/authContext";
-import { data } from "../.test/data";
 
 import Modal from "./Modal";
 import Login from "./Login";
@@ -37,7 +36,7 @@ function Navbar() {
 
   const scoreBoardPageObject = {
     title: "Score Board",
-    component: <ScoreBoard data={data} />,
+    component: <ScoreBoard />,
   };
 
   useEffect(() => {

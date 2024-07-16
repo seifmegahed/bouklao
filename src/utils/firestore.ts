@@ -20,7 +20,7 @@ const helpersCollection = collection(firestore, "helpers");
 
 const aliasesDoc = doc(helpersCollection, "aliases");
 
-type UserAppDataType = {
+export type UserAppDataType = {
   uid: string;
   alias: string;
   score: number;
