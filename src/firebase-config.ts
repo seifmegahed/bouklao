@@ -2,8 +2,8 @@ import { initializeApp } from "firebase/app";
 import { initializeFirestore } from "@firebase/firestore";
 
 import {
+  browserLocalPersistence,
   browserPopupRedirectResolver,
-  browserSessionPersistence,
   initializeAuth,
 } from "firebase/auth";
 import { initializeAppCheck, ReCaptchaV3Provider } from "firebase/app-check";
@@ -21,7 +21,7 @@ export const firebaseConfig = {
 
 export const app = initializeApp(firebaseConfig);
 export const auth = initializeAuth(app, {
-  persistence: browserSessionPersistence,
+  persistence: browserLocalPersistence,
   popupRedirectResolver: browserPopupRedirectResolver,
 });
 
