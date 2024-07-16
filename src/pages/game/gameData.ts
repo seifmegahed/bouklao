@@ -12,8 +12,8 @@ export const GRAVITY = 0.01;
 export const JUMP_SPEED = 1.1;
 
 // Obstacles
-export const OBSTACLE_INTERVAL_MIN = 450;
-export const OBSTACLE_INTERVAL_MAX = 500;
+export const OBSTACLE_INTERVAL_MIN = 250;
+export const OBSTACLE_INTERVAL_MAX = 300;
 export const OUT_OF_BOUNDS = -10;
 
 export type obstacle_t = {
