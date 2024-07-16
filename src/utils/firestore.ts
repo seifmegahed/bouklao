@@ -61,4 +61,4 @@ export const addUserRecord = async (user: User) =>
 export const updateUserScore = async (uid: string, score: number) =>
   await updateDoc(doc(scoreCollection, uid), {
     score: score,
-  });
+  }).then(() => score);

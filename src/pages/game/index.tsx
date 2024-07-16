@@ -1,119 +1,86 @@
 import { useEffect, useRef, useState } from "react";
-import MovingBackground from "../../components/MovingBackground";
+
+import GameWrapper from "../../components/GameWrapper";
+import ScoreDisplay from "../../components/ScoreDisplay";
 import Player from "../../components/Player";
 import Obstacles from "../../components/Obstacles";
+import MovingBackground from "../../components/MovingBackground";
+
 import useAnimate from "../../hooks/useAnimate";
+import { useAuth } from "../../context/authContext";
 
-const BASE_SPEED = 0.15;
-const WORLD_WIDTH = 100;
-const WORLD_HEIGHT = 30;
-
-const MAX_WORLD_SCALE = 10;
-
-const movingBackgrounds = [
-  { image: "images/clouds.png", speed: BASE_SPEED / 4, offset: "10%" },
-  { image: "images/buildings.png", speed: BASE_SPEED / 2, offset: "10%" },
-  { image: "images/ground.png", speed: BASE_SPEED, offset: "0" },
-];
-
-function isCollision(rect1: DOMRect, rect2: DOMRect) {
-  return (
-    rect1.left < rect2.right &&
-    rect1.top < rect2.bottom &&
-    rect1.right > rect2.left &&
-    rect1.bottom > rect2.top
-  );
-}
+import {
+  getTopScore,
+  isCollision,
+  updateTopScore,
+} from "../../utils/gameFunctions";
+import { BASE_SPEED, movingBackgrounds, obstacleImages } from "./gameData";
 
 function Game() {
-  const [gameState, setGameState] = useState(false);
+  const { user } = useAuth();
+
   const [score, setScore] = useState(0);
-  const [topScore, setTopScore] = useState(
-    Number(localStorage.getItem("topScore") || 0)
-  );
   const [lose, setLose] = useState(false);
+  const [gameState, setGameState] = useState(false);
+  const [topScore, setTopScore] = useState(getTopScore(localStorage, user));
+
   const obstaclesRef = useRef<HTMLDivElement>(null);
   const playerRef = useRef<HTMLDivElement>(null);
-  const [worldToPixelScale, setWorldToPixelScale] = useState(
-    window.innerWidth / window.innerHeight < WORLD_WIDTH / WORLD_HEIGHT
-      ? window.innerWidth / WORLD_WIDTH
-      : window.innerHeight / WORLD_HEIGHT
-  );
-
-  const setWorldScale = () =>
-    window.innerWidth / window.innerHeight < WORLD_WIDTH / WORLD_HEIGHT
-      ? setWorldToPixelScale(window.innerWidth / WORLD_WIDTH)
-      : setWorldToPixelScale(window.innerHeight / WORLD_HEIGHT);
 
   const updateGame = (delta: number, speedScale: number) => {
     setScore((prev) => prev + (delta * speedScale) / 70.0);
 
-    if (obstaclesRef?.current?.children && playerRef?.current) {
-      [...obstaclesRef.current.children].forEach((child) => {
-        if (
-          isCollision(
-            child.getBoundingClientRect(),
-            playerRef.current!.getBoundingClientRect()
-          )
-        ) {
-          setLose(true);
-          setGameState(false);
-        }
-      });
-    }
+    if (!obstaclesRef?.current?.children || !playerRef?.current) return;
+    [...obstaclesRef.current.children].forEach((child) => {
+      if (
+        isCollision(
+          child.getBoundingClientRect(),
+          playerRef.current!.getBoundingClientRect()
+        )
+      ) {
+        setLose(true);
+        setGameState(false);
+      }
+    });
   };
-
-  useEffect(() => {
-    window.addEventListener("resize", setWorldScale);
-    return () => window.removeEventListener("resize", setWorldScale);
-  }, []);
 
   const startGame = (event: KeyboardEvent) => {
-    if (event.code === "Space") {
-      setGameState(!gameState);
-      setLose(false);
-    } else {
+    if (event.code !== "Space") {
       window.addEventListener("keyup", startGame, { once: true });
+      return;
     }
+    setGameState(true);
+    setLose(false);
   };
 
   useEffect(() => {
-    if (!gameState) {
-      setTimeout(() => {
-        window.addEventListener("keyup", startGame, { once: true });
-      }, 100);
-      if (score > topScore) {
-        setTopScore(score);
-        localStorage.setItem("topScore", score.toString());
-      }
-    } else {
+    if (gameState) {
       setScore(0);
+      return;
     }
+
+    setTimeout(() => {
+      window.addEventListener("keyup", startGame, { once: true });
+    }, 200);
+
+    if (score < topScore) return;
+
+    updateTopScore(localStorage, user, score)
+      .then((score) => {
+        setTopScore(score);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gameState]);
 
   useAnimate(updateGame, gameState);
 
   return (
-    <div
-      className={"relative overflow-hidden"}
-      style={{
-        height: `${
-          (worldToPixelScale > MAX_WORLD_SCALE
-            ? MAX_WORLD_SCALE
-            : worldToPixelScale) * WORLD_HEIGHT
-        }px`,
-        width: `${
-          (worldToPixelScale > MAX_WORLD_SCALE
-            ? MAX_WORLD_SCALE
-            : worldToPixelScale) * WORLD_WIDTH
-        }px`,
-      }}
-    >
-      <div className="w-full text-right lg:text-lg text-[2vw] font-bold z-10 absolute top-0 p-3">
-        <p>Top: {Math.round(topScore)}</p>
-        <p>Score: {Math.round(score)}</p>
-      </div>
+    <GameWrapper>
+      <ScoreDisplay score={score} topScore={topScore} />
       <Player
         lose={lose}
         speed={BASE_SPEED}
@@ -121,11 +88,7 @@ function Game() {
         playerRef={playerRef}
       />
       <Obstacles
-        obstacleImages={[
-          "images/bottle1.png",
-          "images/bottle2.png",
-          "images/bottle3.png",
-        ]}
+        obstacleImages={obstacleImages}
         gameState={gameState}
         speed={BASE_SPEED}
         obstaclesRef={obstaclesRef}
@@ -140,7 +103,7 @@ function Game() {
           zIndex={index}
         />
       ))}
-    </div>
+    </GameWrapper>
   );
 }
 
