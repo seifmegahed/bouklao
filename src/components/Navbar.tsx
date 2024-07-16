@@ -65,17 +65,15 @@ function Navbar() {
       )}
       <div className="flex justify-end w-screen">
         <div className="flex">
-          {user && (
-            <div
-              className="p-5 text-2xl font-bold text-gray-700 hover:bg-black/10 cursor-pointer"
-              onClick={() => {
-                setActiveItem(scoreBoardPageObject);
-                setIsOpen(true);
-              }}
-            >
-              Score Board
-            </div>
-          )}
+          <div
+            className="p-5 text-2xl font-bold text-gray-700 hover:bg-black/10 cursor-pointer"
+            onClick={() => {
+              setActiveItem(scoreBoardPageObject);
+              setIsOpen(true);
+            }}
+          >
+            Score Board
+          </div>
           <div
             className="p-5 text-2xl font-bold text-gray-700 hover:bg-black/10 cursor-pointer"
             onClick={() => {
