@@ -26,15 +26,16 @@ function ScoreBoard() {
       </div>
       <div className="flex flex-col items-center gap-3 w-full border-2 border-pink-100 rounded-lg p-3 overflow-scroll h-full">
         <p className="text-xl font-bold text-gray-600">Top 100 </p>
+        <div className="flex gap-3 items-center">
+          <p className="text-xl font-bold text-gray-600 w-8 text-right">666</p>
+          <UserCard name="bouklao" score={666} index={666} />
+        </div>
         {data.map((user, index) => (
           <div key={user.alias} className="flex gap-3 items-center">
-            <p className="text-xl font-bold text-gray-600 w-8 text-right">{index + 1}</p>
-            <UserCard
-              key={user.alias}
-              name={user.alias}
-              score={user.score}
-              index={index + 1}
-            />
+            <p className="text-xl font-bold text-gray-600 w-8 text-right">
+              {index + 1}
+            </p>
+            <UserCard name={user.alias} score={user.score} index={index + 1} />
           </div>
         ))}
       </div>

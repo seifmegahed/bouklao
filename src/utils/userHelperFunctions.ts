@@ -46,7 +46,7 @@ export async function initUser(
   if (userRecordDoc.exists()) {
     return Promise.reject(new Error("User already exists"));
   }
-
+  console.log("not working");
   await addUserRecord(user).catch((error) => Promise.reject(error));
 
   userSetter(newUserData(user));
