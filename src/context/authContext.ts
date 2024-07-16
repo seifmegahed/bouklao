@@ -15,7 +15,7 @@ export type AuthContextModel = {
   user: UserData | null;
   newUser: boolean;
   updateUser: (user: UserData) => Promise<void>;
-  updateScore: (user: UserData) => Promise<void>;
+  updateScore: (user: UserData) => Promise<number>;
   login: () => Promise<User>;
   logout: () => Promise<void>;
 };

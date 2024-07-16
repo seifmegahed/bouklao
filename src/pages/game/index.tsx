@@ -45,6 +45,7 @@ function Game() {
   };
 
   const handleTouch = () => {
+    if (gameState) return;
     document.removeEventListener("keyup", handleKey);
     setGameState(true);
     setLose(false);
@@ -55,7 +56,6 @@ function Game() {
       document.addEventListener("keyup", handleKey, { once: true });
       return;
     }
-    document.removeEventListener("touchend", handleTouch);
     setGameState(true);
     setLose(false);
   };
@@ -68,7 +68,6 @@ function Game() {
 
     setTimeout(() => {
       document.addEventListener("keyup", handleKey, { once: true });
-      document.addEventListener("touchstart", handleTouch, { once: true });
     }, 200);
 
     if (score < topScore) return;
@@ -84,10 +83,14 @@ function Game() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gameState]);
 
+  useEffect(() => {
+    setTopScore(getTopScore(localStorage, user));
+  }, [user]);
+
   useAnimate(updateGame, gameState);
 
   return (
-    <GameWrapper>
+    <GameWrapper onTouch={handleTouch}> 
       <ScoreDisplay score={score} topScore={topScore} />
       <Player lose={lose} gameState={gameState} playerRef={playerRef} />
       <Obstacles gameState={gameState} obstaclesRef={obstaclesRef} />

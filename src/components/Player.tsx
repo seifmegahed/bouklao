@@ -54,8 +54,10 @@ function Player(props: {
   };
 
   useEffect(() => {
-    document.addEventListener("keydown", handleKey);
-    document.addEventListener("touchstart", handleTouch);
+    setTimeout(() => {
+      document.addEventListener("keydown", handleKey);
+      document.addEventListener("touchstart", handleTouch);
+    }, 200);
     return () => {
       document.removeEventListener("keydown", handleKey);
       document.removeEventListener("touchstart", handleTouch);
