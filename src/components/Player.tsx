@@ -1,6 +1,7 @@
 import { RefObject, useEffect, useState } from "react";
 import useAnimate from "../hooks/useAnimate";
 import {
+  BASE_SPEED,
   GRAVITY,
   JUMP_SPEED,
   playerFrameImages,
@@ -9,12 +10,11 @@ import {
 import { getPlayerFrame } from "../utils/gameFunctions";
 
 function Player(props: {
-  speed: number;
   lose: boolean;
   gameState: boolean;
   playerRef: RefObject<HTMLDivElement>;
 }) {
-  const { speed, lose, gameState } = props;
+  const { lose, gameState } = props;
 
   let isJumping = false;
   let yVelocity = 0;
@@ -39,7 +39,7 @@ function Player(props: {
   }, [lose]);
 
   const updatePlayer = (delta: number, speedScale: number) => {
-    setCurrentFrame(getPlayerFrame(delta, isJumping, speedScale, speed));
+    setCurrentFrame(getPlayerFrame(delta, isJumping, speedScale, BASE_SPEED));
     if (!isJumping) {
       setPlayerPosition(2);
       return;

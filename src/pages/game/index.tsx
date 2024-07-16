@@ -14,7 +14,7 @@ import {
   isCollision,
   updateTopScore,
 } from "../../utils/gameFunctions";
-import { BASE_SPEED, movingBackgrounds, obstacleImages } from "./gameData";
+import { movingBackgrounds } from "./gameData";
 
 function Game() {
   const { user } = useAuth();
@@ -44,18 +44,18 @@ function Game() {
     });
   };
 
-  const startGameTouch = () => {
-    document.removeEventListener("keyup", startGameKeyboard);
+  const handleTouch = () => {
+    document.removeEventListener("keyup", handleKey);
     setGameState(true);
     setLose(false);
   };
 
-  const startGameKeyboard = (event: KeyboardEvent) => {
+  const handleKey = (event: KeyboardEvent) => {
     if (event.code !== "Space") {
-      document.addEventListener("keyup", startGameKeyboard, { once: true });
+      document.addEventListener("keyup", handleKey, { once: true });
       return;
     }
-    document.removeEventListener("touchend", startGameTouch);
+    document.removeEventListener("touchend", handleTouch);
     setGameState(true);
     setLose(false);
   };
@@ -67,8 +67,8 @@ function Game() {
     }
 
     setTimeout(() => {
-      document.addEventListener("keyup", startGameKeyboard, { once: true });
-      document.addEventListener("touchstart", startGameTouch, { once: true });
+      document.addEventListener("keyup", handleKey, { once: true });
+      document.addEventListener("touchstart", handleTouch, { once: true });
     }, 200);
 
     if (score < topScore) return;
@@ -89,18 +89,8 @@ function Game() {
   return (
     <GameWrapper>
       <ScoreDisplay score={score} topScore={topScore} />
-      <Player
-        lose={lose}
-        speed={BASE_SPEED}
-        gameState={gameState}
-        playerRef={playerRef}
-      />
-      <Obstacles
-        obstacleImages={obstacleImages}
-        gameState={gameState}
-        speed={BASE_SPEED}
-        obstaclesRef={obstaclesRef}
-      />
+      <Player lose={lose} gameState={gameState} playerRef={playerRef} />
+      <Obstacles gameState={gameState} obstaclesRef={obstaclesRef} />
       {movingBackgrounds.map((item, index) => (
         <MovingBackground
           key={item.image}

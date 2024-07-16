@@ -1,10 +1,24 @@
 import { UserData } from "../context/authContext";
 import {
+  OBSTACLE_INTERVAL_MAX,
+  OBSTACLE_INTERVAL_MIN,
+  obstacle_t,
+  obstacleImages,
+  OUT_OF_BOUNDS,
   PLAYER_FRAME_TIME,
   playerFrameImages,
   playerJumpingImage,
 } from "../pages/game/gameData";
 import { updateUserScore } from "./firestore";
+
+export const randomNumberBetween = (min: number, max: number) =>
+  Math.floor(Math.random() * (max - min + 1) + min);
+
+
+/**
+ * 
+ *  Game
+ */
 
 export const isCollision = (rect1: DOMRect, rect2: DOMRect) =>
   rect1.left < rect2.right &&
@@ -27,6 +41,11 @@ export async function updateTopScore(
   return await updateUserScore(user.uid, score);
 }
 
+/**
+ * 
+ *  Player
+ */
+
 let currentFrameTime = 0;
 let playerCurrentFrame = 0;
 
@@ -47,3 +66,38 @@ export function getPlayerFrame(
   currentFrameTime += delta * speed;
   return playerFrameImages[playerCurrentFrame];
 }
+
+/**
+ * 
+ *  Obstacles
+ */
+
+export const getNextObstacleInterval = () =>
+  randomNumberBetween(OBSTACLE_INTERVAL_MIN, OBSTACLE_INTERVAL_MAX);
+
+export const getRandomObstacle = () => ({
+  image: obstacleImages[randomNumberBetween(0, obstacleImages.length - 1)],
+  position: 100,
+});
+
+export const removeOutOfBoundsObstacles = (obstacles: obstacle_t[]) => {
+  const newObstacles: obstacle_t[] = [];
+  for (let i = 0; i < obstacles.length; i++) {
+    const obstacle = obstacles[i];
+    if (obstacle.position > OUT_OF_BOUNDS) newObstacles.push(obstacle);
+  }
+  return newObstacles;
+};
+
+export const updateObstaclePositions = (
+  delta: number,
+  obstacles: obstacle_t[]
+) => {
+  const newObstacles: obstacle_t[] = [];
+  for (let i = 0; i < obstacles.length; i++) {
+    const obstacle = obstacles[i];
+    obstacle.position -= delta / 2;
+    newObstacles.push(obstacle);
+  }
+  return newObstacles;
+};

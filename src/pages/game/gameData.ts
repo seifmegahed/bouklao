@@ -9,6 +9,15 @@ export const PLAYER_FRAME_TIME = 4;
 export const GRAVITY = 0.01;
 export const JUMP_SPEED = 1.1;
 
+export const OBSTACLE_INTERVAL_MIN = 450;
+export const OBSTACLE_INTERVAL_MAX = 500;
+export const OUT_OF_BOUNDS = -10;
+
+export type obstacle_t = {
+  image: string;
+  position: number;
+};
+
 export const movingBackgrounds = [
   { image: "images/clouds.png", speed: BASE_SPEED / 4, offset: "10%" },
   { image: "images/buildings.png", speed: BASE_SPEED / 2, offset: "10%" },
