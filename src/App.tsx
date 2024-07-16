@@ -3,8 +3,8 @@ import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import Game from "./pages/game";
 import Loading from "./components/Loading";
-import { Analytics } from "firebase/analytics";
-import { analytics } from "./firebase-config";
+// import { Analytics } from "firebase/analytics";
+// import { analytics } from "./firebase-config";
 
 const allImages = [
   "images/bottle1.png",

@@ -12,7 +12,7 @@ export const GRAVITY = 0.01;
 export const JUMP_SPEED = 1.1;
 
 // Obstacles
-export const OBSTACLE_INTERVAL_MIN = 250;
+export const OBSTACLE_INTERVAL_MIN = 100;
 export const OBSTACLE_INTERVAL_MAX = 300;
 export const OUT_OF_BOUNDS = -10;
 
