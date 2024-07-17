@@ -11,9 +11,8 @@ const useAnimate = (
   const lastTime = useRef(0);
 
   const animate = () => {
-    if (lastTime.current === 0) {
-      lastTime.current = frame.current;
-    } else {
+    if (lastTime.current === 0) lastTime.current = frame.current;
+    else {
       speedScale.current = speedScale.current + SPEED_INCREASE;
       nextAnimationFrameHandler(
         frame.current - lastTime.current,
