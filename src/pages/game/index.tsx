@@ -90,7 +90,7 @@ function Game() {
   useAnimate(updateGame, gameState);
 
   return (
-    <GameWrapper onTouch={handleTouch}> 
+    <GameWrapper onTouch={handleTouch}>
       <ScoreDisplay score={score} topScore={topScore} />
       <Player lose={lose} gameState={gameState} playerRef={playerRef} />
       <Obstacles gameState={gameState} obstaclesRef={obstaclesRef} />

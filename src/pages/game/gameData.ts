@@ -7,12 +7,12 @@ export const MAX_WORLD_SCALE = 10;
 export const BASE_SPEED = 0.15;
 
 // Player
-export const PLAYER_FRAME_TIME = 4;
+export const PLAYER_FRAME_TIME = 5;
 export const GRAVITY = 0.01;
 export const JUMP_SPEED = 1.1;
 
 // Obstacles
-export const OBSTACLE_INTERVAL_MIN = 240;
+export const OBSTACLE_INTERVAL_MIN = 400;
 export const OBSTACLE_INTERVAL_MAX = 700;
 export const OUT_OF_BOUNDS = -10;
 

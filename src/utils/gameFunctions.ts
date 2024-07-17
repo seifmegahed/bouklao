@@ -14,9 +14,8 @@ import { updateUserScore } from "./firestore";
 export const randomNumberBetween = (min: number, max: number) =>
   Math.floor(Math.random() * (max - min + 1) + min);
 
-
 /**
- * 
+ *
  *  Game
  */
 
@@ -42,7 +41,7 @@ export async function updateTopScore(
 }
 
 /**
- * 
+ *
  *  Player
  */
 
@@ -68,7 +67,7 @@ export function getPlayerFrame(
 }
 
 /**
- * 
+ *
  *  Obstacles
  */
 
@@ -80,24 +79,31 @@ export const getRandomObstacle = () => ({
   position: 100,
 });
 
-export const removeOutOfBoundsObstacles = (obstacles: obstacle_t[]) => {
-  const newObstacles: obstacle_t[] = [];
-  for (let i = 0; i < obstacles.length; i++) {
-    const obstacle = obstacles[i];
-    if (obstacle.position > OUT_OF_BOUNDS) newObstacles.push(obstacle);
-  }
-  return newObstacles;
-};
+export const removeOutOfBoundsObstacles = (obstacles: obstacle_t[]) =>
+  obstacles.filter((obstacle) => obstacle.position > OUT_OF_BOUNDS);
+//   {
+//   const newObstacles: obstacle_t[] = [];
+//   for (let i = 0; i < obstacles.length; i++) {
+//     const obstacle = obstacles[i];
+//     if (obstacle.position > OUT_OF_BOUNDS) newObstacles.push(obstacle);
+//   }
+//   return newObstacles;
+// };
 
 export const updateObstaclePositions = (
   delta: number,
   obstacles: obstacle_t[]
-) => {
-  const newObstacles: obstacle_t[] = [];
-  for (let i = 0; i < obstacles.length; i++) {
-    const obstacle = obstacles[i];
-    obstacle.position -= delta;
-    newObstacles.push(obstacle);
-  }
-  return newObstacles;
-};
+) =>
+  obstacles.map((obstacle) => ({
+    ...obstacle,
+    position: obstacle.position - delta,
+  }));
+// {
+// const newObstacles: obstacle_t[] = [];
+// for (let i = 0; i < obstacles.length; i++) {
+//   const obstacle = obstacles[i];
+// obstacle.position -= delta;
+//     newObstacles.push(obstacle);
+//   }
+//   return newObstacles;
+// };

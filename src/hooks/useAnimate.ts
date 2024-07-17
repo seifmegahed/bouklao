@@ -6,32 +6,35 @@ const useAnimate = (
   nextAnimationFrameHandler: (delta: number, speedScale: number) => void,
   shouldAnimate = true
 ) => {
-  const frame = useRef(0);
   const speedScale = useRef(1);
-  let lastTime: number;
+  const frame = useRef(0);
+  const lastTime = useRef(0);
 
   const animate = () => {
-    if (lastTime === undefined) {
-      lastTime = frame.current;
+    if (lastTime.current === 0) {
+      lastTime.current = frame.current;
     } else {
       speedScale.current = speedScale.current + SPEED_INCREASE;
-      nextAnimationFrameHandler(frame.current - lastTime, speedScale.current);
-      lastTime = frame.current;
+      nextAnimationFrameHandler(
+        frame.current - lastTime.current,
+        speedScale.current
+      );
+      lastTime.current = frame.current;
     }
-    frame.current = requestAnimationFrame(animate);
+    frame.current = window.requestAnimationFrame(animate);
   };
 
   useEffect(() => {
     // start or continue animation in case of shouldAnimate if true
     if (shouldAnimate) {
-      frame.current = requestAnimationFrame(animate);
+      frame.current = window.requestAnimationFrame(animate);
     } else {
       // stop animation
-      cancelAnimationFrame(frame.current);
+      window.cancelAnimationFrame(frame.current);
       speedScale.current = 1;
     }
 
-    return () => cancelAnimationFrame(frame.current);
+    return () => window.cancelAnimationFrame(frame.current);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [shouldAnimate]);
 };

@@ -2,8 +2,8 @@ import { initializeApp } from "firebase/app";
 import { initializeFirestore } from "@firebase/firestore";
 
 import {
-  browserLocalPersistence,
-  browserPopupRedirectResolver,
+  // browserLocalPersistence,
+  // browserPopupRedirectResolver,
   initializeAuth,
 } from "firebase/auth";
 import { initializeAppCheck, ReCaptchaV3Provider } from "firebase/app-check";
@@ -21,12 +21,12 @@ export const firebaseConfig = {
 
 export const app = initializeApp(firebaseConfig);
 export const auth = initializeAuth(app, {
-  persistence: browserLocalPersistence,
-  popupRedirectResolver: browserPopupRedirectResolver,
+  // persistence: browserLocalPersistence,
+  // popupRedirectResolver: browserPopupRedirectResolver,
 });
 
 export const firestore = initializeFirestore(app, {
-  experimentalAutoDetectLongPolling: true,
+  // experimentalAutoDetectLongPolling: true,
 });
 
 export const appCheck = initializeAppCheck(app, {

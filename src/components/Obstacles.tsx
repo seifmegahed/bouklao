@@ -8,14 +8,14 @@ import {
 } from "../utils/gameFunctions";
 import { BASE_SPEED, obstacle_t } from "../pages/game/gameData";
 
+let nextObstacleInterval = getNextObstacleInterval();
+
 function Obstacles(props: {
   gameState: boolean;
   obstaclesRef: RefObject<HTMLDivElement>;
 }) {
-  const { gameState } = props;
+  const { gameState, obstaclesRef } = props;
   const [currentObstacles, setCurrentObstacles] = useState<obstacle_t[]>([]);
-
-  let nextObstacleInterval = getNextObstacleInterval();
 
   const updateObstacles = (delta: number, speedScale: number) =>
     setCurrentObstacles((prev) => {
@@ -30,25 +30,27 @@ function Obstacles(props: {
       return newObstacles;
     });
 
-  useAnimate(updateObstacles, gameState);
-
   useEffect(() => {
     if (gameState) {
       setCurrentObstacles([]);
     }
   }, [gameState]);
 
+  useAnimate(updateObstacles, gameState);
+
   return (
-    <div ref={props.obstaclesRef}>
-      {currentObstacles.map((obstacle, index) => (
-        <img
-          key={obstacle.image + index}
-          src={obstacle.image}
-          className="absolute z-10 h-[25%] bottom-[4%]"
-          style={{ left: `${obstacle.position}%` }}
-        />
-      ))}
-    </div>
+    <>
+      <div ref={obstaclesRef}>
+        {currentObstacles.map((obstacle, index) => (
+          <img
+            key={obstacle.image + index}
+            src={obstacle.image}
+            className="absolute z-10 h-[25%] bottom-[4%]"
+            style={{ left: `${obstacle.position}%` }}
+          />
+        ))}
+      </div>
+    </>
   );
 }
 
