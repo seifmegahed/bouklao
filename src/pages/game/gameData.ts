@@ -4,7 +4,6 @@ export const WORLD_HEIGHT = 30;
 export const MAX_WORLD_SCALE = 10;
 
 // Game
-// export const BASE_SPEED = 0.15;
 export const BASE_SPEED = 0.15;
 
 // Player

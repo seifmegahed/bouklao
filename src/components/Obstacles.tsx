@@ -17,11 +17,11 @@ function Obstacles(props: {
   const updateObstacles = (delta: number, speedScale: number) => {
     setCurrentObstacles((prev) =>
       prev
-        .filter((obstacle) => obstacle.position > OUT_OF_BOUNDS)
         .map((obstacle) => ({
           ...obstacle,
           position: obstacle.position - delta * BASE_SPEED * speedScale,
         }))
+        .filter((obstacle) => obstacle.position > OUT_OF_BOUNDS)
     );
     setNextObstacleInterval((prev) => {
       if (prev > 0) return prev - delta;
