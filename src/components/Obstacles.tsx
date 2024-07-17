@@ -3,12 +3,8 @@ import useAnimate from "../hooks/useAnimate";
 import {
   getNextObstacleInterval,
   getRandomObstacle,
-  removeOutOfBoundsObstacles,
-  updateObstaclePositions,
 } from "../utils/gameFunctions";
-import { BASE_SPEED, obstacle_t } from "../pages/game/gameData";
-
-// let nextObstacleInterval = getNextObstacleInterval();
+import { BASE_SPEED, obstacle_t, OUT_OF_BOUNDS } from "../pages/game/gameData";
 
 function Obstacles(props: {
   gameState: boolean;
@@ -18,23 +14,21 @@ function Obstacles(props: {
   const [currentObstacles, setCurrentObstacles] = useState<obstacle_t[]>([]);
   const [, setNextObstacleInterval] = useState(getNextObstacleInterval());
 
-  const updateObstacles = (delta: number, speedScale: number) =>
-    setCurrentObstacles((prev) => {
-      const newObstacles = removeOutOfBoundsObstacles(
-        updateObstaclePositions(delta * BASE_SPEED * speedScale, prev)
-      );
-      setNextObstacleInterval((prev) => {
-        if (prev > 0) return prev - delta;
-        newObstacles.push(getRandomObstacle());
-        return getNextObstacleInterval();
-      });
-      // if (nextObstacleInterval <= 0) {
-      //   newObstacles.push(getRandomObstacle());
-      //   nextObstacleInterval = getNextObstacleInterval();
-      // }
-      // nextObstacleInterval -= delta;
-      return newObstacles;
+  const updateObstacles = (delta: number, speedScale: number) => {
+    setCurrentObstacles((prev) =>
+      prev
+        .filter((obstacle) => obstacle.position > OUT_OF_BOUNDS)
+        .map((obstacle) => ({
+          ...obstacle,
+          position: obstacle.position - delta * BASE_SPEED * speedScale,
+        }))
+    );
+    setNextObstacleInterval((prev) => {
+      if (prev > 0) return prev - delta;
+      setCurrentObstacles((prev) => [...prev, getRandomObstacle()]);
+      return getNextObstacleInterval();
     });
+  };
 
   useEffect(() => {
     if (gameState) {
@@ -45,18 +39,16 @@ function Obstacles(props: {
   useAnimate(updateObstacles, gameState);
 
   return (
-    <>
-      <div ref={obstaclesRef}>
-        {currentObstacles.map((obstacle, index) => (
-          <img
-            key={obstacle.image + index}
-            src={obstacle.image}
-            className="absolute z-10 h-[25%] bottom-[4%]"
-            style={{ left: `${obstacle.position}%` }}
-          />
-        ))}
-      </div>
-    </>
+    <div ref={obstaclesRef}>
+      {currentObstacles.map((obstacle, index) => (
+        <img
+          key={obstacle.image + index}
+          src={obstacle.image}
+          className="absolute z-10 h-[25%] bottom-[4%]"
+          style={{ left: `${obstacle.position}%` }}
+        />
+      ))}
+    </div>
   );
 }
 

@@ -2,9 +2,7 @@ import { UserData } from "../context/authContext";
 import {
   OBSTACLE_INTERVAL_MAX,
   OBSTACLE_INTERVAL_MIN,
-  obstacle_t,
   obstacleImages,
-  OUT_OF_BOUNDS,
   PLAYER_FRAME_TIME,
   playerFrameImages,
   playerJumpingImage,
@@ -78,32 +76,3 @@ export const getRandomObstacle = () => ({
   image: obstacleImages[randomNumberBetween(0, obstacleImages.length - 1)],
   position: 100,
 });
-
-export const removeOutOfBoundsObstacles = (obstacles: obstacle_t[]) =>
-  obstacles.filter((obstacle) => obstacle.position > OUT_OF_BOUNDS);
-//   {
-//   const newObstacles: obstacle_t[] = [];
-//   for (let i = 0; i < obstacles.length; i++) {
-//     const obstacle = obstacles[i];
-//     if (obstacle.position > OUT_OF_BOUNDS) newObstacles.push(obstacle);
-//   }
-//   return newObstacles;
-// };
-
-export const updateObstaclePositions = (
-  delta: number,
-  obstacles: obstacle_t[]
-) =>
-  obstacles.map((obstacle) => ({
-    ...obstacle,
-    position: obstacle.position - delta,
-  }));
-// {
-// const newObstacles: obstacle_t[] = [];
-// for (let i = 0; i < obstacles.length; i++) {
-//   const obstacle = obstacles[i];
-// obstacle.position -= delta;
-//     newObstacles.push(obstacle);
-//   }
-//   return newObstacles;
-// };
