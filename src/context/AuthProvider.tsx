@@ -1,7 +1,12 @@
 import { auth } from "../firebase-config";
-import { useState, ReactNode } from "react";
+import { useState, ReactNode, useEffect } from "react";
 import { AuthContextModel, AuthContext, UserData } from "./authContext";
-import { GoogleAuthProvider, inMemoryPersistence, setPersistence, signInWithPopup, signOut } from "firebase/auth";
+import {
+  GoogleAuthProvider,
+  onAuthStateChanged,
+  signInWithPopup,
+  signOut,
+} from "firebase/auth";
 
 import { updateUserAppData, updateUserScore } from "../utils/firestore";
 import { initUser } from "../utils/userHelperFunctions";
@@ -21,13 +26,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   async function login() {
     const provider = new GoogleAuthProvider();
-    setPersistence(auth, inMemoryPersistence);
-    const user = (
+    return (
       await signInWithPopup(auth, provider).catch((error) =>
         Promise.reject(error)
       )
     ).user;
-    return await initUser(user, setCurrentUser, setNewUser);
   }
 
   async function logout() {
@@ -45,6 +48,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setCurrentUser(user);
     return await updateUserAppData(user).then(() => setNewUser(false));
   }
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      console.log("user changed", user);
+      if (user) {
+        initUser(user, setCurrentUser, setNewUser);
+      }
+    });
+    return () => unsubscribe();
+  }, []);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
