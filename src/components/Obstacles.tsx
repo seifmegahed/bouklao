@@ -8,7 +8,7 @@ import {
 } from "../utils/gameFunctions";
 import { BASE_SPEED, obstacle_t } from "../pages/game/gameData";
 
-let nextObstacleInterval = getNextObstacleInterval();
+// let nextObstacleInterval = getNextObstacleInterval();
 
 function Obstacles(props: {
   gameState: boolean;
@@ -16,17 +16,23 @@ function Obstacles(props: {
 }) {
   const { gameState, obstaclesRef } = props;
   const [currentObstacles, setCurrentObstacles] = useState<obstacle_t[]>([]);
+  const [, setNextObstacleInterval] = useState(getNextObstacleInterval());
 
   const updateObstacles = (delta: number, speedScale: number) =>
     setCurrentObstacles((prev) => {
       const newObstacles = removeOutOfBoundsObstacles(
         updateObstaclePositions(delta * BASE_SPEED * speedScale, prev)
       );
-      if (nextObstacleInterval <= 0) {
+      setNextObstacleInterval((prev) => {
+        if (prev > 0) return prev - delta;
         newObstacles.push(getRandomObstacle());
-        nextObstacleInterval = getNextObstacleInterval();
-      }
-      nextObstacleInterval -= delta;
+        return getNextObstacleInterval();
+      });
+      // if (nextObstacleInterval <= 0) {
+      //   newObstacles.push(getRandomObstacle());
+      //   nextObstacleInterval = getNextObstacleInterval();
+      // }
+      // nextObstacleInterval -= delta;
       return newObstacles;
     });
 

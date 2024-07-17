@@ -4,6 +4,7 @@ export const WORLD_HEIGHT = 30;
 export const MAX_WORLD_SCALE = 10;
 
 // Game
+// export const BASE_SPEED = 0.15;
 export const BASE_SPEED = 0.15;
 
 // Player
@@ -12,8 +13,8 @@ export const GRAVITY = 0.01;
 export const JUMP_SPEED = 1.1;
 
 // Obstacles
-export const OBSTACLE_INTERVAL_MIN = 400;
-export const OBSTACLE_INTERVAL_MAX = 700;
+export const OBSTACLE_INTERVAL_MIN = 60/BASE_SPEED;
+export const OBSTACLE_INTERVAL_MAX = 100/BASE_SPEED;
 export const OUT_OF_BOUNDS = -10;
 
 export type obstacle_t = {
