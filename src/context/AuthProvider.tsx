@@ -1,7 +1,7 @@
 import { auth } from "../firebase-config";
 import { useState, ReactNode } from "react";
 import { AuthContextModel, AuthContext, UserData } from "./authContext";
-import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
+import { GoogleAuthProvider, inMemoryPersistence, setPersistence, signInWithPopup, signOut } from "firebase/auth";
 
 import { updateUserAppData, updateUserScore } from "../utils/firestore";
 import { initUser } from "../utils/userHelperFunctions";
@@ -21,6 +21,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   async function login() {
     const provider = new GoogleAuthProvider();
+    setPersistence(auth, inMemoryPersistence);
     const user = (
       await signInWithPopup(auth, provider).catch((error) =>
         Promise.reject(error)
