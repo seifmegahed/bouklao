@@ -94,15 +94,8 @@ function Game() {
       <ScoreDisplay score={score} topScore={topScore} />
       <Player lose={lose} gameState={gameState} playerRef={playerRef} />
       <Obstacles gameState={gameState} obstaclesRef={obstaclesRef} />
-      {movingBackgrounds.map((item, index) => (
-        <MovingBackground
-          key={item.image}
-          gameState={gameState}
-          speed={item.speed}
-          imageURL={item.image}
-          bottomOffset={item.offset}
-          zIndex={index}
-        />
+      {movingBackgrounds.map((item) => (
+        <MovingBackground key={item.image} item={item} gameState={gameState} />
       ))}
     </GameWrapper>
   );

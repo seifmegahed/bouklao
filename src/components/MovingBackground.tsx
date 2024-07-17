@@ -1,15 +1,13 @@
 import { useState } from "react";
 import useAnimate from "../hooks/useAnimate";
+import { MovingBackgroundItemType } from "../pages/game/gameData";
 
 function MovingBackground(props: {
-  speed: number;
-  imageURL: string;
-  bottomOffset: string;
+  item: MovingBackgroundItemType;
   gameState: boolean;
-  zIndex?: number;
 }) {
   const [framePositions, setFramePositions] = useState([0, 300]);
-  const { speed, gameState } = props;
+  const { image, speed, offset, zIndex } = props.item;
   const update = (delta: number, speedScale: number) => {
     const factor = delta * speed * speedScale;
     setFramePositions((prev) =>
@@ -19,19 +17,19 @@ function MovingBackground(props: {
     );
   };
 
-  useAnimate(update, gameState);
+  useAnimate(update, props.gameState);
 
   return (
     <>
       {framePositions.map((position, index) => (
         <img
           key={`ground-${index}`}
-          src={props.imageURL}
+          src={image}
           className="moving-background"
           style={{
             left: `${position}%`,
-            bottom: props.bottomOffset,
-            zIndex: props.zIndex ?? 0,
+            bottom: offset,
+            zIndex: zIndex,
           }}
         />
       ))}

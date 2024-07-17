@@ -12,8 +12,8 @@ export const GRAVITY = 0.01;
 export const JUMP_SPEED = 1.1;
 
 // Obstacles
-export const OBSTACLE_INTERVAL_MIN = 30/BASE_SPEED;
-export const OBSTACLE_INTERVAL_MAX = 120/BASE_SPEED;
+export const OBSTACLE_INTERVAL_MIN = 30 / BASE_SPEED;
+export const OBSTACLE_INTERVAL_MAX = 120 / BASE_SPEED;
 export const OUT_OF_BOUNDS = -10;
 
 export type obstacle_t = {
@@ -21,10 +21,27 @@ export type obstacle_t = {
   position: number;
 };
 
-export const movingBackgrounds = [
-  { image: "images/clouds.png", speed: BASE_SPEED / 4, offset: "10%" },
-  { image: "images/buildings.png", speed: BASE_SPEED / 2, offset: "10%" },
-  { image: "images/ground.png", speed: BASE_SPEED, offset: "0" },
+export type MovingBackgroundItemType = {
+  image: string;
+  speed: number;
+  offset: string;
+  zIndex: number;
+};
+
+export const movingBackgrounds: MovingBackgroundItemType[] = [
+  {
+    image: "images/clouds.png",
+    speed: BASE_SPEED / 4,
+    offset: "10%",
+    zIndex: 0,
+  },
+  {
+    image: "images/buildings.png",
+    speed: BASE_SPEED / 2,
+    offset: "10%",
+    zIndex: 1,
+  },
+  { image: "images/ground.png", speed: BASE_SPEED, offset: "0", zIndex: 2 },
 ];
 
 export const obstacleImages = [

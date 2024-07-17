@@ -9,6 +9,15 @@ import {
 } from "../pages/game/gameData";
 import { getPlayerFrame } from "../utils/gameFunctions";
 
+// import React from "react";
+// const Image = React.memo(
+//   (props: {
+//     src: string;
+//     className: string;
+//     style: { [key: string]: string };
+//   }) => <img {...props} />
+// );
+
 function Player(props: {
   lose: boolean;
   gameState: boolean;
