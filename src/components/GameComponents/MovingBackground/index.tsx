@@ -1,4 +1,4 @@
-import { MovingBackground2Type } from "../../pages/game/gameData";
+import { MovingBackground2Type } from "../../../pages/game/gameData";
 
 function MovingBackground2(props: MovingBackground2Type) {
   const { image, offset, zIndex, position0, position1 } = props;
