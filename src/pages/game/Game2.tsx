@@ -38,6 +38,7 @@ function Game2() {
   const playerJumping = useRef(false);
   const obstaclesRef = useRef<HTMLDivElement>(null);
   const playerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const playerProps = {
     image: playerFrame,
@@ -49,12 +50,16 @@ function Game2() {
     let timerId: number;
     gameState && setObstacles([]);
 
-    const handleKey = (e: KeyboardEvent) => {
-      if (e.code !== "Space") return;
+    const handleControl = () => {
       if (!gameState) setGameState(true);
       if (playerJumping.current) return;
       yVelocity.current = JUMP_SPEED;
       playerJumping.current = true;
+    };
+
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.code !== "Space") return;
+      handleControl();
     };
 
     const update = (time: number) => {
@@ -97,20 +102,24 @@ function Game2() {
     };
 
     document.addEventListener("keydown", handleKey);
+    containerRef.current?.addEventListener("touchstart", handleControl);
     timerId = requestAnimationFrame(update);
 
     return () => {
       removeEventListener("keydown", handleKey);
+      removeEventListener("touchstart", handleControl);
       cancelAnimationFrame(timerId);
     };
   }, [gameState]);
 
   return (
-    <GameWrapper onTouch={() => console.log("touch")}>
-      <Obstacles obstacles={obstacles} forwardRef={obstaclesRef} />
-      <MovingBackgrounds items={backgrounds} />
-      <Player {...playerProps} />
-    </GameWrapper>
+    <div ref={containerRef}>
+      <GameWrapper onTouch={() => console.log("touch")}>
+        <Obstacles obstacles={obstacles} forwardRef={obstaclesRef} />
+        <MovingBackgrounds items={backgrounds} />
+        <Player {...playerProps} />
+      </GameWrapper>
+    </div>
   );
 }
 
