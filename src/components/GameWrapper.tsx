@@ -18,14 +18,15 @@ function GameWrapper({
   }, []);
   return (
     <div
-      className={"relative overflow-hidden"}
-      style={gameSize(worldScale)}
+      className="flex items-center justify-center"
       onTouchStart={(e) => {
         e.preventDefault();
         onTouch();
       }}
     >
-      {children}
+      <div className={"relative overflow-hidden"} style={gameSize(worldScale)}>
+        {children}
+      </div>
     </div>
   );
 }

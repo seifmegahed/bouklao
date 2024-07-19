@@ -27,28 +27,35 @@ function Game() {
   const obstaclesRef = useRef<HTMLDivElement>(null);
   const playerRef = useRef<HTMLDivElement>(null);
 
+  const obstaclesChildren = obstaclesRef?.current?.children;
+  const player = playerRef?.current;
+
+  const checkCollision = () => {
+    if (!obstaclesChildren || !player) return;
+    [...obstaclesChildren].forEach((child) => {
+      if (
+        !isCollision(
+          child.getBoundingClientRect(),
+          player.getBoundingClientRect()
+        )
+      )
+        return;
+      setGameState(false);
+      setLose(true);
+    });
+  };
+
   const updateGame = (delta: number, speedScale: number) => {
     setScore((prev) => prev + (delta * speedScale) / 70.0);
-
-    if (!obstaclesRef?.current?.children || !playerRef?.current) return;
-    [...obstaclesRef.current.children].forEach((child) => {
-      if (
-        isCollision(
-          child.getBoundingClientRect(),
-          playerRef.current!.getBoundingClientRect()
-        )
-      ) {
-        setLose(true);
-        setGameState(false);
-      }
-    });
+    setTimeout(() => checkCollision(), 10);
   };
 
   const handleTouch = () => {
     if (gameState) return;
     document.removeEventListener("keyup", handleKey);
-    setGameState(true);
+    setScore(0);
     setLose(false);
+    setGameState(true);
   };
 
   const handleKey = (event: KeyboardEvent) => {
@@ -56,16 +63,12 @@ function Game() {
       document.addEventListener("keyup", handleKey, { once: true });
       return;
     }
-    setGameState(true);
+    setScore(0);
     setLose(false);
+    setGameState(true);
   };
 
   useEffect(() => {
-    if (gameState) {
-      setScore(0);
-      return;
-    }
-
     setTimeout(() => {
       document.addEventListener("keyup", handleKey, { once: true });
     }, 200);

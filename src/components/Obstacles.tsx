@@ -31,9 +31,7 @@ function Obstacles(props: {
   };
 
   useEffect(() => {
-    if (gameState) {
-      setCurrentObstacles([]);
-    }
+    if (gameState) setCurrentObstacles([]);
   }, [gameState]);
 
   useAnimate(updateObstacles, gameState);

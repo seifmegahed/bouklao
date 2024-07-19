@@ -3,7 +3,11 @@ import { useEffect, useRef } from "react";
 const SPEED_INCREASE = 0.0001;
 
 const useAnimate = (
-  nextAnimationFrameHandler: (delta: number, speedScale: number) => void,
+  nextAnimationFrameHandler: (
+    delta: number,
+    speedScale: number
+    // averageDelta: number
+  ) => void,
   shouldAnimate = true
 ) => {
   const speedScale = useRef(1);
