@@ -38,6 +38,12 @@ function Login() {
             this information with anyone.
           </p>
           <p>By signing in, you agree to our terms and privacy policy.</p>
+          <p>
+            Source code is available on {" "}
+            <a className="underline text-blue-500 hover:text-blue-700" href="https://github.com/john-smilga/react-firebase-auth-demo">
+              GitHub
+            </a>
+          </p>
         </div>
       </div>
     </>
