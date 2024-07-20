@@ -1,4 +1,7 @@
 # Bouklao web app
+
+![Vercel](https://vercelbadge.vercel.app/api/seifmegahed/bouklao)
+
 Web app game for [@bouklao](https://www.instagram.com/bouklao) the cat.
 
 ## Game
@@ -88,7 +91,7 @@ npm run dev
 ## License
 Rights for the images and icons are retained by [bouklao](https://www.instagram.com/bouklao) you cannot use them without permission.
 
-Source code is licensed under is licensed under the GNU General Public License v3.0 ([GPL-3.0](https://choosealicense.com/licenses/gpl-3.0/)). You may use, modify, and distribute this project under the terms of the GPL-3.0 license.
+Source code is licensed under is licensed under the MIT License. You may use, modify, and distribute this project under the terms of the MIT license.
 
 For the full text of the license, please see the [LICENSE](https://github.com/seifmegahed/bouklao/blob/main/LICENSE) file.
 
