@@ -12,7 +12,7 @@ function ScoreBoard() {
   }, []);
   return (
     <div className="grid md:grid-cols-2 gap-3 py-10 overflow-hidden h-full">
-      <div className="md:flex hidden flex-col items-center gap-3 w-full border-2 border-pink-100 rounded-lg p-3">
+      <div className="md:flex hidden flex-col items-center gap-3 w-full border-2 border-pink-100 rounded-lg p-3 overflow-y-scroll">
         <p className="text-xl font-bold text-gray-600">
           Top 3
         </p>
@@ -25,7 +25,7 @@ function ScoreBoard() {
           />
         ))}
       </div>
-      <div className="flex flex-col items-center gap-3 w-full border-2 border-pink-100 rounded-lg p-3 overflow-scroll h-full">
+      <div className="flex flex-col items-center gap-3 w-full border-2 border-pink-100 rounded-lg p-3 overflow-y-scroll h-full">
         <p className="text-xl font-bold text-gray-600">Top 100 </p>
         <div className="flex gap-3 items-center">
           <p className="text-xl font-bold text-gray-600 w-8 text-right">666</p>
