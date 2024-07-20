@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import { getScale, gameSize } from "./functions";
+import Overlay from "../Overlay";
 
 function GameWrapper({
   children,
-  onTouch,
+  forwardRef,
+  overlay,
 }: {
   children: React.ReactNode;
-  onTouch: () => void;
+  forwardRef: React.RefObject<HTMLDivElement>;
+  overlay: boolean;
 }) {
   const [worldScale, setWorldScale] = useState(getScale(window));
   useEffect(() => {
@@ -18,12 +21,10 @@ function GameWrapper({
   }, []);
   return (
     <div
-      className="flex items-center justify-center h-full"
-      onTouchStart={(e) => {
-        e.preventDefault();
-        onTouch();
-      }}
+      className="flex items-center justify-center h-full w-full"
+      ref={forwardRef}
     >
+      <Overlay state={overlay} />
       <div className={"relative overflow-hidden"} style={gameSize(worldScale)}>
         {children}
       </div>

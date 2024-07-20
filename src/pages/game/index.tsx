@@ -7,25 +7,23 @@ import MovingBackgrounds from "./components/MovingBackgrounds";
 import Player from "./components/Player";
 
 import { updateBackgrounds } from "./components/MovingBackground/functions";
-import { getPlayerFrame } from "./components/functions";
-import { checkCollision } from "./components/Player/functions";
+import { checkCollision, getPlayerFrame } from "./components/Player/functions";
 import { obstacle_t } from "./components/Obstacle/types";
+import { updateObstacles } from "./components/Obstacles/functions";
 import {
   getObstacleInterval,
   getRandomObstacle,
-  updateObstacles,
 } from "./components/Obstacle/functions";
 
 import {
   BASE_SPEED,
   GRAVITY,
   JUMP_SPEED,
+  SPEED_SCALE_INCREASE,
   movingBackgrounds,
   playerFrameImages,
   playerLoseImage,
 } from "./data";
-
-const SPEED_SCALE_INCREASE = 0.00001;
 
 function Game() {
   const [backgrounds, setBackgrounds] = useState(movingBackgrounds);
@@ -33,19 +31,19 @@ function Game() {
   const [obstacles, setObstacles] = useState<obstacle_t[]>([]);
   const [playerPosition, setPlayerPosition] = useState(0);
   const [score, setScore] = useState(0);
-  const [overlay, setOverlay] = useState(false);
+  const [overlay, setOverlay] = useState(true);
 
+  const delta = useRef(0);
   const lastTime = useRef(0);
   const yVelocity = useRef(0);
-  const playerJumping = useRef(false);
-  const delta = useRef(0);
-  const animationRef = useRef<number | null>(null);
-  const gameState = useRef(false);
   const speedScale = useRef(1);
+  const gameState = useRef(false);
+  const playerJumping = useRef(false);
+  const animationRef = useRef<number | null>(null);
   const nextObstacleInterval = useRef(getObstacleInterval(speedScale.current));
 
-  const obstaclesRef = useRef<HTMLDivElement>(null);
   const playerRef = useRef<HTMLDivElement>(null);
+  const obstaclesRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const playerProps = {
@@ -91,8 +89,20 @@ function Game() {
       );
 
       if (playerJumping.current) {
-        yVelocity.current = yVelocity.current - GRAVITY * delta.current;
+        /**
+         * Sanity check
+         *
+         * If the game component is not a pure function
+         * the update function will be called twice in dev
+         *
+         * to catch this you need browser react dev tools
+         * if the component is not a pure function
+         * the half of the logs will appear transparent
+         * in the console.
+         *
+         */
         // console.log("playerJumping", yVelocity.current);
+        yVelocity.current = yVelocity.current - GRAVITY * delta.current;
         delta.current = delta.current + 1;
         setPlayerPosition((_prevPosition) => {
           const factor = _prevPosition + yVelocity.current * delta.current;
@@ -105,6 +115,7 @@ function Game() {
       }
 
       if (checkCollision(obstaclesRef, playerRef)) {
+        /* Game over */
         setPlayerFrame(playerLoseImage);
         gameState.current = false;
         setOverlay(true);
@@ -123,6 +134,10 @@ function Game() {
     };
 
     const handleStart = () => {
+      /**
+       *  Game start
+       *  Reset the game
+       */
       setScore(0);
       setOverlay(false);
       gameState.current = true;
@@ -162,6 +177,7 @@ function Game() {
     animationRef.current = requestAnimationFrame(update);
 
     return () => {
+      /* Clean up */
       window.removeEventListener("keydown", handleKey);
       container?.removeEventListener("touchstart", handleTouch);
       if (animationRef.current !== null)
@@ -170,19 +186,12 @@ function Game() {
   }, []);
 
   return (
-    <div className="h-full" ref={containerRef}>
-      {overlay && (
-        <div className="absolute top-0 left-0 w-full h-full bg-pink-500/50 z-20 flex items-center justify-center text-white font-bold text-3xl">
-          <p>Press to Start</p>
-        </div>
-      )}
-      <GameWrapper onTouch={() => console.log("touch")}>
-        <ScoreDisplay score={score} state={overlay} />
-        <Obstacles obstacles={obstacles} forwardRef={obstaclesRef} />
-        <MovingBackgrounds items={backgrounds} />
-        <Player {...playerProps} />
-      </GameWrapper>
-    </div>
+    <GameWrapper forwardRef={containerRef} overlay={overlay}>
+      <ScoreDisplay score={score} state={overlay} />
+      <Obstacles obstacles={obstacles} forwardRef={obstaclesRef} />
+      <MovingBackgrounds items={backgrounds} />
+      <Player {...playerProps} />
+    </GameWrapper>
   );
 }
 

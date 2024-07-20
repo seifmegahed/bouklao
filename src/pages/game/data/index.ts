@@ -7,6 +7,7 @@ export const MAX_WORLD_SCALE = 10;
 
 // Game
 export const BASE_SPEED = 0.05;
+export const SPEED_SCALE_INCREASE = 0.00001;
 
 // Player
 export const PLAYER_FRAME_TIME = 80;
@@ -18,11 +19,6 @@ export const JUMP_SPEED = 0.45;
 export const OBSTACLE_INTERVAL_MIN = 800;
 export const OBSTACLE_INTERVAL_MAX = 2000;
 export const OUT_OF_BOUNDS = -10;
-
-export type obstacle_t = {
-  image: string;
-  position: number;
-};
 
 export const movingBackgrounds: MovingBackgroundType[] = [
   {

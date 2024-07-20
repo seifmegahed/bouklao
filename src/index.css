@@ -1,9 +1,10 @@
 body {
   background: rgb(254, 190, 222);
+  /* background: #feaeb0; */
   background: linear-gradient(
     0deg,
-    rgba(254, 190, 222, 1) 37%,
-    rgba(255, 255, 255, 1) 100%
+    rgba(254, 190, 222, 1) 20%,
+    rgba(255, 255, 255, 1) 80%
   );
   -webkit-user-select: none;
   -khtml-user-select: none;

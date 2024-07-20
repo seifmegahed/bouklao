@@ -65,17 +65,15 @@ function Navbar() {
       )}
       <div className="flex justify-end w-screen z-50 p-3">
         <div className="flex gap-3">
-          <div
-            className="p-5 text-2xl font-bold text-white hover:bg-pink-200 cursor-pointer rounded-xl bg-pink-300"
+          <NavButton
             onClick={() => {
               setActiveItem(scoreBoardPageObject);
               setIsOpen(true);
             }}
           >
             Score Board
-          </div>
-          <div
-            className="p-5 text-2xl font-bold text-white hover:bg-pink-200 cursor-pointer rounded-xl bg-pink-300"
+          </NavButton>
+          <NavButton
             onClick={() => {
               setActiveItem(user ? userPageObject : loginPageObject);
               setIsOpen(true);
@@ -86,10 +84,21 @@ function Navbar() {
                 ? user.name.replace(" ", "")
                 : user.alias
               : "Sign in"}
-          </div>
+          </NavButton>
         </div>
       </div>
     </>
+  );
+}
+
+function NavButton(props: { children: ReactNode; onClick: () => void }) {
+  return (
+    <div
+      className="p-5 text-2xl font-bold text-white hover:bg-pink-200 cursor-pointer rounded-xl bg-[#FEAEB0]"
+      onClick={props.onClick}
+    >
+      {props.children}
+    </div>
   );
 }
 

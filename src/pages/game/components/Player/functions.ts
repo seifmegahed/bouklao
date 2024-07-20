@@ -1,4 +1,29 @@
 import { RefObject } from "react";
+import {
+  PLAYER_FRAME_TIME,
+  playerFrameImages,
+  playerJumpingImage,
+} from "../../data";
+
+let currentFrameTime = 0;
+let playerCurrentFrame = 0;
+
+export function getPlayerFrame(
+  delta: number,
+  jumping: boolean,
+  speedScale: number
+) {
+  if (jumping) return playerJumpingImage;
+
+  if (currentFrameTime >= PLAYER_FRAME_TIME * speedScale) {
+    playerCurrentFrame = (playerCurrentFrame + 1) % playerFrameImages.length;
+    currentFrameTime -= PLAYER_FRAME_TIME;
+    return playerFrameImages[playerCurrentFrame];
+  }
+
+  currentFrameTime += delta * speedScale;
+  return playerFrameImages[playerCurrentFrame];
+}
 
 export const isCollision = (rect1: DOMRect, rect2: DOMRect) =>
   rect1.left < rect2.right &&
