@@ -28,6 +28,7 @@ Firebase Firestore
 
 ## To do
 - [x] Add leader board
+- [ ] Use inline BASE64 image data instead of files
 - [ ] refactor engine?
 - [ ] Add sound effects
 - [ ] Add instagram login
@@ -89,5 +90,5 @@ Rights for the images and icons are retained by [bouklao](https://www.instagram.
 
 Source code is licensed under is licensed under the GNU General Public License v3.0 ([GPL-3.0](https://choosealicense.com/licenses/gpl-3.0/)). You may use, modify, and distribute this project under the terms of the GPL-3.0 license.
 
-For the full text of the license, please see the [LICENSE](https://github.com/seifmegahed/bouklao/LICENSE) file.
+For the full text of the license, please see the [LICENSE](https://github.com/seifmegahed/bouklao/blob/main/LICENSE) file.
 
