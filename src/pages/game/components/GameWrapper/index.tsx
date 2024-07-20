@@ -21,11 +21,11 @@ function GameWrapper({
   }, []);
   return (
     <div
-      className="flex items-center justify-center h-full w-full"
+      className="flex items-center justify-center h-full w-full no-select"
       ref={forwardRef}
     >
       <Overlay state={overlay} />
-      <div className={"relative overflow-hidden"} style={gameSize(worldScale)}>
+      <div className={"relative overflow-hidden no-select"} style={gameSize(worldScale)}>
         {children}
       </div>
     </div>
