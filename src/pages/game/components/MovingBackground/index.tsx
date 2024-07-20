@@ -1,6 +1,6 @@
-import { MovingBackground2Type } from "../../../pages/game/gameData";
+import { MovingBackgroundType } from "./types";
 
-function MovingBackground2(props: MovingBackground2Type) {
+function MovingBackground(props: MovingBackgroundType) {
   const { image, offset, zIndex, position0, position1 } = props;
 
   const style0 = {
@@ -36,4 +36,4 @@ function MovingBackground2(props: MovingBackground2Type) {
   );
 }
 
-export default MovingBackground2;
+export default MovingBackground;

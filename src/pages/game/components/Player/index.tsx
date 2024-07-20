@@ -10,7 +10,7 @@ function Player(props: {
   return (
     <>
       <div
-        className="absolute left-[4.5%] z-10 h-[25%] overflow-visible w-[6%] border border-black"
+        className="absolute left-[4.5%] z-10 h-[25%] overflow-visible w-[6%]"
         style={{ bottom: `${position + 4}%` }}
         ref={forwardRef}
       ></div>

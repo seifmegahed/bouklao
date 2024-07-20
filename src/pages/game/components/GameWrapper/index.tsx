@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getScale, gameSize } from "../utils/gameScreen";
+import { getScale, gameSize } from "./functions";
 
 function GameWrapper({
   children,
@@ -18,7 +18,7 @@ function GameWrapper({
   }, []);
   return (
     <div
-      className="flex items-center justify-center"
+      className="flex items-center justify-center h-full"
       onTouchStart={(e) => {
         e.preventDefault();
         onTouch();

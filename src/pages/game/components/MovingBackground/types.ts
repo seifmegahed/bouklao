@@ -1,4 +1,4 @@
-export type MovingBackground2Type = {
+export type MovingBackgroundType = {
   image: string;
   position0: number;
   position1: number;

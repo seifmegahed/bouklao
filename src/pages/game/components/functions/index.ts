@@ -1,13 +1,11 @@
-import { UserData } from "../context/authContext";
+import { UserData } from "../../../../context/authContext";
+import { updateUserScore } from "../../../../utils/firestore";
+
 import {
-  OBSTACLE_INTERVAL_MAX,
-  OBSTACLE_INTERVAL_MIN,
-  obstacleImages,
   PLAYER_FRAME_TIME,
   playerFrameImages,
   playerJumpingImage,
-} from "../pages/game/gameData";
-import { updateUserScore } from "./firestore";
+} from "../../data";
 
 export const randomNumberBetween = (min: number, max: number) =>
   Math.floor(Math.random() * (max - min + 1) + min);
@@ -49,8 +47,7 @@ let playerCurrentFrame = 0;
 export function getPlayerFrame(
   delta: number,
   jumping: boolean,
-  speedScale: number,
-  speed: number
+  speedScale: number
 ) {
   if (jumping) return playerJumpingImage;
 
@@ -60,19 +57,6 @@ export function getPlayerFrame(
     return playerFrameImages[playerCurrentFrame];
   }
 
-  currentFrameTime += delta * speed;
+  currentFrameTime += delta * speedScale;
   return playerFrameImages[playerCurrentFrame];
 }
-
-/**
- *
- *  Obstacles
- */
-
-export const getNextObstacleInterval = () =>
-  randomNumberBetween(OBSTACLE_INTERVAL_MIN, OBSTACLE_INTERVAL_MAX);
-
-export const getRandomObstacle = () => ({
-  image: obstacleImages[randomNumberBetween(0, obstacleImages.length - 1)],
-  position: 100,
-});

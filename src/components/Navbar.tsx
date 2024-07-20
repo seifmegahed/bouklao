@@ -63,10 +63,10 @@ function Navbar() {
           {activeItem.component}
         </Modal>
       )}
-      <div className="flex justify-end w-screen">
-        <div className="flex">
+      <div className="flex justify-end w-screen z-50 p-3">
+        <div className="flex gap-3">
           <div
-            className="p-5 text-2xl font-bold text-gray-700 hover:bg-black/10 cursor-pointer"
+            className="p-5 text-2xl font-bold text-white hover:bg-pink-200 cursor-pointer rounded-xl bg-pink-300"
             onClick={() => {
               setActiveItem(scoreBoardPageObject);
               setIsOpen(true);
@@ -75,7 +75,7 @@ function Navbar() {
             Score Board
           </div>
           <div
-            className="p-5 text-2xl font-bold text-gray-700 hover:bg-black/10 cursor-pointer"
+            className="p-5 text-2xl font-bold text-white hover:bg-pink-200 cursor-pointer rounded-xl bg-pink-300"
             onClick={() => {
               setActiveItem(user ? userPageObject : loginPageObject);
               setIsOpen(true);

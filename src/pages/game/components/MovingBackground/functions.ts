@@ -1,7 +1,7 @@
-import { MovingBackground2Type } from "./types";
+import { MovingBackgroundType } from "./types";
 
 export const updateBackgrounds = (
-  items: MovingBackground2Type[],
+  items: MovingBackgroundType[],
   delta: number,
   scale: number
 ) =>
