@@ -63,7 +63,7 @@ function Navbar() {
           {activeItem.component}
         </Modal>
       )}
-      <div className="flex justify-end w-screen z-50 p-3">
+      <div className="flex sm:justify-end justify-center w-screen z-50 p-3">
         <div className="flex gap-3">
           <NavButton
             onClick={() => {
@@ -94,7 +94,7 @@ function Navbar() {
 function NavButton(props: { children: ReactNode; onClick: () => void }) {
   return (
     <div
-      className="p-5 text-2xl font-bold text-white hover:bg-pink-200 cursor-pointer rounded-xl bg-[#FEAEB0]"
+      className="p-5 sm:text-2xl text-lg font-bold text-white hover:bg-pink-200 cursor-pointer rounded-xl bg-[#FEAEB0]"
       onClick={props.onClick}
     >
       {props.children}

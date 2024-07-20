@@ -3,7 +3,7 @@ const FOOTER_IMAGE =
 
 function Footer() {
   return (
-    <div className="sm:max-h-[20%] p-5 flex sm:justify-start justify-center items-center w-full">
+    <div className="sm:max-h-[20%] p-5 sm:mb-0 mb-16  flex sm:justify-start justify-center items-center w-full">
       <img src={FOOTER_IMAGE} className="h-full max-h-[100px]" />
     </div>
   );
