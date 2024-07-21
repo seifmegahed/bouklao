@@ -29,7 +29,7 @@ function ScoreDisplay({ score, state }: { score: number; state: boolean }) {
   }, [score, state, user]);
 
   return (
-    <div className="w-full text-right lg:text-lg sm:text-[2vw] font-bold z-10 absolute top-0 p-3">
+    <div className="w-full text-right lg:text-lg md:text-[2vw] font-bold z-10 absolute top-0 px-3">
       <p>Top: {topScore}</p>
       <p>Score: {Math.round(score)}</p>
     </div>

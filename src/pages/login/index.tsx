@@ -28,7 +28,7 @@ function LoginPage({ onClose }: { onClose: () => void }) {
   return (
     <>
       <Loading state={loading} />
-      <div className="flex flex-col items-center justify-center w-full h-full text-wrap text-2xl overflow-y-scroll py-10 gap-20">
+      <div className="flex flex-col items-center justify-center w-full h-full text-wrap text-2xl py-10 gap-20">
         <div className="flex flex-col text-center max-w-68 text-gray-500 text-sm">
           <p>
             You can play the game without signing in, but your top score will
