@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { useAuth } from "@/context/authContext";
 
@@ -8,6 +8,7 @@ import CatIcon from "@/icons/CatIcon";
 
 import { getAliases } from "@/utils/firestore";
 import { toast } from "sonner";
+import Button from "@/components/Button";
 
 function UserPage() {
   const { user, updateUser, newUser } = useAuth();
@@ -87,25 +88,3 @@ function UserPage() {
 }
 
 export default UserPage;
-
-function Button({
-  onClick,
-  disabled = false,
-  children,
-}: {
-  onClick: () => void;
-  disabled?: boolean;
-  children: ReactNode;
-}) {
-  return (
-    <button
-      className={`${
-        disabled ? "bg-gray-300" : "hover:bg-[#FEAEB0] bg-[#FF85A9]"
-      } w-48 text-white font-bold py-2 px-4 rounded`}
-      onClick={onClick}
-      disabled={disabled}
-    >
-      {children}
-    </button>
-  );
-}
