@@ -3,9 +3,11 @@ import { ReactNode, useEffect, useState } from "react";
 import { useAuth } from "@/context/authContext";
 
 import Modal from "@/components/Modal";
-import Login from "@/components/Login";
-import UserPage from "@/components/UserPage";
-import ScoreBoard from "@/components/ScoreBoard";
+
+import ScoreBoard from "@/pages/scoreBoard";
+import LoginPage from "@/pages/login";
+import UserPage from "@/pages/user";
+
 
 import MenuButton from "./MenuButton";
 import NavMenu from "./NavMenu";
@@ -42,7 +44,7 @@ function Navbar() {
   const handleSignIn = () => {
     setModalComponent({
       title: "Sign in",
-      component: <Login onClose={() => handleProfile()} />,
+      component: <LoginPage onClose={() => handleProfile()} />,
     });
     setMenuOpen(false);
   };

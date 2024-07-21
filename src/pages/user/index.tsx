@@ -57,7 +57,7 @@ function UserPage() {
   return (
     <>
       <Loading state={loading} />
-      <div className="grid md:grid-cols-2 gap-4 overflow-y-scroll">
+      <div className="grid md:grid-cols-2 gap-4 overflow-y-scroll sm:pb-16">
         <div className="md:row-span-3 flex items-center justify-center">
           <CatIcon size={"250"} />
         </div>

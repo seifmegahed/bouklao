@@ -6,7 +6,7 @@ import Loading from "@/components/Loading";
 import GoogleLoginButton from "@/components/GoogleLoginButton";
 import { toast } from "sonner";
 
-function Login({ onClose }: { onClose: () => void }) {
+function LoginPage({ onClose }: { onClose: () => void }) {
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
 
@@ -61,4 +61,4 @@ function Login({ onClose }: { onClose: () => void }) {
   );
 }
 
-export default Login;
+export default LoginPage;
