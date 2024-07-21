@@ -20,19 +20,20 @@ function Navbar() {
     title: string;
   } | null>(null);
 
-  const toggleMenu = () => setMenuOpen((prev) => !prev);
+  const closeMenu = () => setMenuOpen(false);
+  const openMenu = () => setMenuOpen(true);
 
   const handleProfile = () => {
     setModalComponent({
       title: "Profile",
-      component: <UserPage onClose={toggleMenu} />,
+      component: <UserPage onClose={closeMenu} />,
     });
     setMenuOpen(false);
   };
 
-  const handleLeaderBoard = () => {
+  const handleScoreBoard = () => {
     setModalComponent({
-      title: "Leader board",
+      title: "Score board",
       component: <ScoreBoard />,
     });
     setMenuOpen(false);
@@ -61,7 +62,7 @@ function Navbar() {
     setMenuOpen(false);
     setModalComponent({
       title: "Profile",
-      component: <UserPage onClose={toggleMenu} />,
+      component: <UserPage onClose={closeMenu} />,
     });
   }, [user, newUser]);
 
@@ -75,15 +76,15 @@ function Navbar() {
         {modalComponent?.component}
       </Modal>
       <div className="flex justify-end w-full p-3 relative">
-        <MenuButton onClick={toggleMenu} />
+        <MenuButton onClick={openMenu} />
       </div>
-      <NavMenu onClose={toggleMenu} open={menuOpen}>
+      <NavMenu onClose={closeMenu} open={menuOpen}>
         {user ? (
           <MenuItem onClick={handleProfile}>Profile</MenuItem>
         ) : (
           <MenuItem onClick={handleSignIn}>Sign in</MenuItem>
         )}
-        <MenuItem onClick={handleLeaderBoard}>Leader board</MenuItem>
+        <MenuItem onClick={handleScoreBoard}>Score board</MenuItem>
         <MenuItem onClick={() => toast.error("Help!")}>Help</MenuItem>
         {user && <MenuItem onClick={handleSignOut}>Sign out</MenuItem>}
       </NavMenu>

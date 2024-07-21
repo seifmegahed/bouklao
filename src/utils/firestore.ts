@@ -32,7 +32,7 @@ export async function getAliases() {
   return _aliasesDoc.data()!.values as string[];
 }
 
-export const updateUserAppData = async (user: UserData) =>
+export const updateUserAppData = async (user: UserData, oldAlias: string) =>
   await runTransaction(firestore, async (transaction) => {
     const _aliasesDoc = await getDoc(aliasesDoc);
     transaction.set(doc(scoreCollection, user.uid), {
@@ -54,7 +54,9 @@ export const updateUserAppData = async (user: UserData) =>
       return Promise.reject(new Error("Alias already exists"));
     }
     transaction.set(aliasesDoc, {
-      values: [...aliases, user.alias.toLowerCase()],
+      values: [...aliases, user.alias.toLowerCase()].filter(
+        (value) => value !== oldAlias.toLowerCase()
+      ),
     });
   });
 

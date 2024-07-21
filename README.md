@@ -25,7 +25,7 @@ Web app game for [@bouklao](https://www.instagram.com/bouklao) the cat.
 
 ## To do
 - [x] Add leader board
-- [ ] Add drop down menu
+- [x] Add drop down menu
 - [ ] Use inline BASE64 image data instead of files
 - [ ] refactor engine?
 - [ ] Add sound effects

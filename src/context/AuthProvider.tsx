@@ -46,8 +46,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   async function updateUser(user: UserData) {
-    setCurrentUser(user);
-    return await updateUserAppData(user).then(() => setNewUser(false));
+    return await updateUserAppData(user, currentUser!.alias).then(() => {
+      setNewUser(false);
+      setCurrentUser(user);
+    });
   }
 
   useEffect(() => {
