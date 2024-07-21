@@ -55,7 +55,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (user) {
         initUser(user, setCurrentUser, setNewUser).catch((error) => {
           console.error(error);
-          toast(error);
+          toast(error.message);
         });
       }
     });
