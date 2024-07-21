@@ -82,7 +82,7 @@ npm run dev
 ## License
 Rights for the images and icons are retained by [bouklao](https://www.instagram.com/bouklao) you cannot use them without permission.
 
-Source code is licensed under is licensed under the MIT License. You may use, modify, and distribute the source code under the terms of the MIT license.
+Source code is licensed under the MIT License. You may use, modify, and distribute the source code under the terms of the MIT license.
 
 For the full text of the license, please see the [LICENSE](https://github.com/seifmegahed/bouklao/blob/main/LICENSE) file.
 
