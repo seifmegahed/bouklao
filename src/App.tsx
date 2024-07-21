@@ -1,6 +1,5 @@
 import Footer from "./components/Footer";
-import Navbar from "./components/Navbar";
-// import Game from "./pages/game";
+import Navbar from "./components/Nav";
 import Game from "./pages/game";
 
 function App() {
