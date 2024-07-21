@@ -4,6 +4,8 @@
 
 Web app game for [@bouklao](https://www.instagram.com/bouklao) the cat.
 
+![](https://utfs.io/f/f9a3ac67-ea3e-4618-a53b-9c627ad56391-m5amct.png)
+
 ## Game
 * Chrome dino clone based on [WebDevSimplified](https://github.com/WebDevSimplified/chrome-dino-game-clone)'s [tutorial](https://www.youtube.com/watch?v=47eXVRJKdkU) but rewritten in React and Typescript
 * All the game logic is in the `src/pages/game` folder
