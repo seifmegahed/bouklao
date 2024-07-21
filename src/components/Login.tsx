@@ -4,6 +4,7 @@ import { useAuth } from "@/context/authContext";
 
 import Loading from "@/components/Loading";
 import GoogleLoginButton from "@/components/GoogleLoginButton";
+import { toast } from "sonner";
 
 function Login() {
   const [loading, setLoading] = useState(false);
@@ -12,8 +13,12 @@ function Login() {
   const handleLogin = () => {
     setLoading(true);
     login()
+      .then((user) => {
+        toast("Successfully logged in as " + user.displayName);
+      })
       .catch((error) => {
         console.error(error);
+        toast("Error signing in");
       })
       .finally(() => {
         setLoading(false);
@@ -41,8 +46,11 @@ function Login() {
           </p>
           <p>By signing in, you agree to our terms and privacy policy.</p>
           <p>
-            Source code is available on {" "}
-            <a className="underline text-blue-500 hover:text-blue-700" href="https://github.com/john-smilga/react-firebase-auth-demo">
+            Source code is available on{" "}
+            <a
+              className="underline text-blue-500 hover:text-blue-700"
+              href="https://github.com/john-smilga/react-firebase-auth-demo"
+            >
               GitHub
             </a>
           </p>
