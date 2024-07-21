@@ -1,4 +1,4 @@
-import { ReactNode, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 
 import { useAuth } from "@/context/authContext";
 
@@ -13,7 +13,7 @@ import MenuItem from "./MenuItem";
 import { toast } from "sonner";
 
 function Navbar() {
-  const { user, logout } = useAuth();
+  const { user, newUser, logout } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
   const [modalComponent, setModalComponent] = useState<{
     component: ReactNode;
@@ -21,6 +21,7 @@ function Navbar() {
   } | null>(null);
 
   const toggleMenu = () => setMenuOpen((prev) => !prev);
+
   const handleProfile = () => {
     setModalComponent({
       title: "Profile",
@@ -54,6 +55,15 @@ function Navbar() {
       })
       .finally(() => setMenuOpen(false));
   };
+
+  useEffect(() => {
+    if (!user || !newUser) return;
+    setMenuOpen(false);
+    setModalComponent({
+      title: "Profile",
+      component: <UserPage onClose={toggleMenu} />,
+    });
+  }, [user, newUser]);
 
   return (
     <>

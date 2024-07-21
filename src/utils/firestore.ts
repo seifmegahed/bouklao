@@ -49,11 +49,13 @@ export const updateUserAppData = async (user: UserData) =>
 
     const aliases = _aliasesDoc.data()!.values as string[];
 
-    if (aliases.includes(user.alias)) {
+    if (aliases.includes(user.alias.toLowerCase())) {
       console.log("alias already exists", aliases);
       return Promise.reject(new Error("Alias already exists"));
     }
-    transaction.set(aliasesDoc, { values: [...aliases, user.alias] });
+    transaction.set(aliasesDoc, {
+      values: [...aliases, user.alias.toLowerCase()],
+    });
   });
 
 export const getUserRecord = async (uid: string) =>

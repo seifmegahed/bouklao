@@ -7,9 +7,10 @@ import Loading from "@/components/Loading";
 import CatIcon from "@/icons/CatIcon";
 
 import { getAliases } from "@/utils/firestore";
+import { toast } from "sonner";
 
 function UserPage({ onClose }: { onClose: () => void }) {
-  const { user, updateUser, logout, newUser } = useAuth();
+  const { user, updateUser, newUser } = useAuth();
   const [loading, setLoading] = useState(false);
   const [alias, setAlias] = useState(user!.alias);
   const [aliases, setAliases] = useState<string[]>([]);
@@ -20,10 +21,11 @@ function UserPage({ onClose }: { onClose: () => void }) {
     updateUser({ ...user!, alias })
       .then(() => {
         onClose();
+        toast("Saved!");
       })
       .catch((error) => {
         console.log(error);
-        setError(error.message);
+        toast("Failed to save! :(");
       })
       .finally(() => {
         setLoading(false);
@@ -41,16 +43,11 @@ function UserPage({ onClose }: { onClose: () => void }) {
 
   const handleChange = (value: string) => {
     setAlias(value.replace(" ", ""));
-    if (aliases.includes(value)) {
-      setError("Alias already exists");
+    if (aliases.includes(value.toLowerCase())) {
+      setError("Name already exists");
     } else {
       setError("");
     }
-  };
-
-  const handleLogout = () => {
-    onClose();
-    logout();
   };
 
   return (
@@ -61,7 +58,7 @@ function UserPage({ onClose }: { onClose: () => void }) {
           <CatIcon size={"250"} />
         </div>
         <InputField
-          label="Alias"
+          label="Username"
           value={alias}
           onChange={handleChange}
           error={error !== ""}
@@ -71,18 +68,14 @@ function UserPage({ onClose }: { onClose: () => void }) {
         <InputField label="Name" disabled value={user!.name} />
         <InputField label="Top Score" disabled value={user!.score + ""} />
         <div className="md:col-span-2 flex justify-end">
-          {newUser ? (
-            <Button onClick={handleSave} disabled={alias === user!.alias}>
-              Save
-            </Button>
-          ) : (
-            <Button onClick={handleLogout}>Sign Out</Button>
-          )}
+          <Button onClick={handleSave} disabled={alias === user!.alias}>
+            Save
+          </Button>
         </div>
         {newUser && (
           <div className="w-full text-sm text-center md:col-span-2 my-5">
-            <p>Add an alias to your to be displayed on the score board.</p>
-            <p>You cannot change your alias after you save it.</p>
+            <p>Add a username to be displayed on the score board.</p>
+            <p>username cannot contain spaces.</p>
           </div>
         )}
       </div>

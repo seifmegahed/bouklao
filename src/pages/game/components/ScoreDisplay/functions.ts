@@ -13,5 +13,7 @@ export async function updateTopScore(
 ) {
   localStorage.setItem("topScore", score.toString());
   if (user === null) return score;
+  if (user.alias === "")
+    throw new Error("Score not submitted :( Please set an username first!");
   return await updateUserScore(user.uid, score);
 }

@@ -10,6 +10,7 @@ import {
 import { AuthContextModel, AuthContext, UserData } from "@/context/authContext";
 import { updateUserAppData, updateUserScore } from "@/utils/firestore";
 import { initUser } from "@/utils/userHelperFunctions";
+import { toast } from "sonner";
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [currentUser, setCurrentUser] = useState<UserData | null>(null);
@@ -52,7 +53,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        initUser(user, setCurrentUser, setNewUser);
+        initUser(user, setCurrentUser, setNewUser).catch((error) => {
+          console.error(error);
+          toast(error);
+        });
       }
     });
     return () => unsubscribe();

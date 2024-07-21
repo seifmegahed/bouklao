@@ -21,7 +21,7 @@ function ScoreDisplay({ score, state }: { score: number; state: boolean }) {
       updateTopScore(localStorage, user, newTopScore)
         .then(() => toast(`Top score updated!`))
         .catch((error) => {
-          toast("Failed to update top score");
+          toast(error.message);
           console.error(error);
         });
       return newTopScore;
