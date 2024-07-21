@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "@/context/authContext";
 import { getTopScore, updateTopScore } from "./functions";
+import { toast } from "sonner";
 
 function ScoreDisplay({ score, state }: { score: number; state: boolean }) {
   const { user } = useAuth();
@@ -16,7 +17,13 @@ function ScoreDisplay({ score, state }: { score: number; state: boolean }) {
     setTopScore((prev) => {
       if (prev > score) return prev;
       const newTopScore = Math.round(score);
-      updateTopScore(localStorage, user, newTopScore);
+      toast(`New top score: ${newTopScore}!!`);
+      updateTopScore(localStorage, user, newTopScore)
+        .then(() => toast(`Top score updated!`))
+        .catch((error) => {
+          toast("Failed to update top score");
+          console.error(error);
+        });
       return newTopScore;
     });
   }, [score, state, user]);

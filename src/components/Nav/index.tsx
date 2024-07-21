@@ -10,6 +10,7 @@ import ScoreBoard from "@/components/ScoreBoard";
 import MenuButton from "./MenuButton";
 import NavMenu from "./NavMenu";
 import MenuItem from "./MenuItem";
+import { toast } from "sonner";
 
 function Navbar() {
   const { user, logout } = useAuth();
@@ -43,6 +44,17 @@ function Navbar() {
     });
     setMenuOpen(false);
   };
+
+  const handleSignOut = () => {
+    logout()
+      .then(() => toast("Signed out successfully"))
+      .catch((error) => {
+        toast("Signed out failed");
+        console.error(error);
+      })
+      .finally(() => setMenuOpen(false));
+  };
+
   return (
     <>
       <Modal
@@ -62,8 +74,8 @@ function Navbar() {
           <MenuItem onClick={handleSignIn}>Sign in</MenuItem>
         )}
         <MenuItem onClick={handleLeaderBoard}>Leader board</MenuItem>
-        <MenuItem onClick={() => console.log("Help")}>Help</MenuItem>
-        {user && <MenuItem onClick={logout}>Sign out</MenuItem>}
+        <MenuItem onClick={() => toast.error("Help!")}>Help</MenuItem>
+        {user && <MenuItem onClick={handleSignOut}>Sign out</MenuItem>}
       </NavMenu>
     </>
   );
