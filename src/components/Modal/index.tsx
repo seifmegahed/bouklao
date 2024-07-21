@@ -15,7 +15,6 @@ function Modal(props: {
   // }
   return ReactDOM.createPortal(
     <div
-      onClick={onClose}
       className={`absolute h-screen w-screen flex justify-center items-center z-[1000] ${
         !isOpen && "scale-0 opacity-0"
       } duration-300 ease-in-out`}

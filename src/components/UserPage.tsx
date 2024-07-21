@@ -63,7 +63,6 @@ function UserPage({ onClose }: { onClose: () => void }) {
           onChange={handleChange}
           error={error !== ""}
           errorMessage={error}
-          disabled={!newUser}
         />
         <InputField label="Name" disabled value={user!.name} />
         <InputField label="Top Score" disabled value={user!.score + ""} />
