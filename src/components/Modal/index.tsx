@@ -19,7 +19,7 @@ function Modal(props: {
         !isOpen && "scale-0 opacity-0"
       } duration-300 ease-in-out`}
     >
-      <div className="bg-white shadow-xl rounded-2xl w-full h-full m-5 max-w-[800px] max-h-[800px] p-5 flex flex-col">
+      <div className="bg-white shadow-xl sm:rounded-2xl sm:h-fit w-full h-full sm:max-w-[800px] sm:max-h-[800px] p-5 flex flex-col"> 
         <div className="flex justify-between items-center w-full">
           <h1 className="text-4xl text-gray-500">{title}</h1>
           <ModalCloseButton onClose={onClose} />
