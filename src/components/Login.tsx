@@ -20,7 +20,7 @@ function Login() {
   return (
     <>
       <Loading state={loading} />
-      <div className="flex flex-col items-center w-full h-full text-wrap text-2xl">
+      <div className="flex flex-col items-center w-full h-full text-wrap text-2xl overflow-y-scroll">
         <div className="flex flex-col text-center max-w-68 sm:pb-10 pt-10 text-gray-500 text-sm">
           <p>
             You can play the game without signing in, but your top score will

@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import ReactDOM from "react-dom";
-import CloseIcon from "../icons/CloseIcon";
+
+import ModalCloseButton from "./ModalCloseButton";
 
 function Modal(props: {
   children: ReactNode;
@@ -9,20 +10,20 @@ function Modal(props: {
   title: string;
 }) {
   const { isOpen, onClose, children, title } = props;
-  if (!isOpen) {
-    return null;
-  }
+  // if (!isOpen) {
+  //   return null;
+  // }
   return ReactDOM.createPortal(
-    <div className="absolute h-screen w-screen flex justify-center items-center bg-black/40 z-[1000]">
+    <div
+      onClick={onClose}
+      className={`absolute h-screen w-screen flex justify-center items-center z-[1000] ${
+        !isOpen && "scale-0 opacity-0"
+      } duration-300 ease-in-out`}
+    >
       <div className="bg-white shadow-xl rounded-2xl w-full h-full m-5 max-w-[800px] max-h-[800px] p-5 flex flex-col">
         <div className="flex justify-between items-center w-full">
           <h1 className="text-4xl text-gray-500">{title}</h1>
-          <button
-            className="m-2 text-2xl text-gray-700 hover:bg-black/10 rounded-full p-3"
-            onClick={onClose}
-          >
-            <CloseIcon />
-          </button>
+          <ModalCloseButton onClose={onClose} />
         </div>
         {children}
       </div>
