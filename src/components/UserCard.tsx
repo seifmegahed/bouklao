@@ -1,4 +1,4 @@
-import CatIcon from "../icons/CatIcon";
+import CatIcon from "@/icons/CatIcon";
 
 function UserCard(props: {
   name: string;

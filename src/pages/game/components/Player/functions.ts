@@ -3,7 +3,7 @@ import {
   PLAYER_FRAME_TIME,
   playerFrameImages,
   playerJumpingImage,
-} from "../../data";
+} from "@/pages/game/data";
 
 let currentFrameTime = 0;
 let playerCurrentFrame = 0;

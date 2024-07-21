@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
-import ArrowRightIcon from "../../icons/ArrowRightIcon";
+
+import ArrowRightIcon from "@/icons/ArrowRightIcon";
 import MenuItem from "./MenuItem";
 
 function NavMenu({

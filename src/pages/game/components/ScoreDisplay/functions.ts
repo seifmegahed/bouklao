@@ -1,5 +1,5 @@
-import { UserData } from "../../../../context/authContext";
-import { updateUserScore } from "../../../../utils/firestore";
+import { UserData } from "@/context/authContext";
+import { updateUserScore } from "@/utils/firestore";
 
 export function getTopScore(localStorage: Storage, user: UserData | null) {
   if (user === null) return Number(localStorage.getItem("topScore") || 0);

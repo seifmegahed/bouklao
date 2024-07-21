@@ -1,4 +1,4 @@
-import { MAX_WORLD_SCALE, WORLD_HEIGHT, WORLD_WIDTH } from "../../data";
+import { MAX_WORLD_SCALE, WORLD_HEIGHT, WORLD_WIDTH } from "@/pages/game/data";
 
 const getGameHeight = (scale: number) =>
   (scale > MAX_WORLD_SCALE ? MAX_WORLD_SCALE : scale) * WORLD_HEIGHT + "px";

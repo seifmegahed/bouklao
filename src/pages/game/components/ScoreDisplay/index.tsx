@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useAuth } from "../../../../context/authContext";
+import { useAuth } from "@/context/authContext";
 import { getTopScore, updateTopScore } from "./functions";
 
 function ScoreDisplay({ score, state }: { score: number; state: boolean }) {

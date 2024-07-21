@@ -1,6 +1,6 @@
 import { ForwardedRef } from "react";
-import { obstacle_t } from "../Obstacle/types";
-import Obstacle from "../Obstacle";
+import { obstacle_t } from "@/pages/game/components/Obstacle/types";
+import Obstacle from "@/pages/game/components/Obstacle";
 
 function Obstacles(props: {
   obstacles: obstacle_t[];

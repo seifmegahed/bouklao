@@ -1,6 +1,5 @@
-import { auth } from "../firebase-config";
 import { useState, ReactNode, useEffect } from "react";
-import { AuthContextModel, AuthContext, UserData } from "./authContext";
+import { auth } from "@/firebase-config";
 import {
   GoogleAuthProvider,
   onAuthStateChanged,
@@ -8,8 +7,9 @@ import {
   signOut,
 } from "firebase/auth";
 
-import { updateUserAppData, updateUserScore } from "../utils/firestore";
-import { initUser } from "../utils/userHelperFunctions";
+import { AuthContextModel, AuthContext, UserData } from "@/context/authContext";
+import { updateUserAppData, updateUserScore } from "@/utils/firestore";
+import { initUser } from "@/utils/userHelperFunctions";
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [currentUser, setCurrentUser] = useState<UserData | null>(null);

@@ -4,9 +4,9 @@ import {
   addUserRecord,
   getUserAppData,
   getUserRecord,
-} from "../utils/firestore";
+} from "@/utils/firestore";
 
-import { UserData } from "../context/authContext";
+import { UserData } from "@/context/authContext";
 
 const newUserData = (user: User): UserData => ({
   uid: user.uid,

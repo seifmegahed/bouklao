@@ -1,7 +1,9 @@
 import { useState } from "react";
-import { useAuth } from "../context/authContext";
-import GoogleLoginButton from "./GoogleLoginButton";
-import Loading from "./Loading";
+
+import { useAuth } from "@/context/authContext";
+
+import Loading from "@/components/Loading";
+import GoogleLoginButton from "@/components/GoogleLoginButton";
 
 function Login() {
   const [loading, setLoading] = useState(false);

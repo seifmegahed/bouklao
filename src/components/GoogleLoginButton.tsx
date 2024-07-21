@@ -1,4 +1,4 @@
-import GoogleIcon from "../icons/GoogleIcon";
+import GoogleIcon from "@/icons/GoogleIcon";
 
 function GoogleLoginButton({ onClick }: { onClick: () => void }) {
   return (

@@ -1,9 +1,12 @@
 import { ReactNode, useEffect, useState } from "react";
-import { useAuth } from "../context/authContext";
-import CatIcon from "../icons/CatIcon";
-import InputField from "./InputField";
-import Loading from "./Loading";
-import { getAliases } from "../utils/firestore";
+
+import { useAuth } from "@/context/authContext";
+
+import InputField from "@/components/InputField";
+import Loading from "@/components/Loading";
+import CatIcon from "@/icons/CatIcon";
+
+import { getAliases } from "@/utils/firestore";
 
 function UserPage({ onClose }: { onClose: () => void }) {
   const { user, updateUser, logout, newUser } = useAuth();

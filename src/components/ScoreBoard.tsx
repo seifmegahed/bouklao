@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
-import UserCard from "./UserCard";
-import { getTopScores, UserAppDataType } from "../utils/firestore";
+
+import UserCard from "@/components/UserCard";
+
+import { getTopScores, UserAppDataType } from "@/utils/firestore";
 
 function ScoreBoard() {
   const [data, setData] = useState<UserAppDataType[]>([]);

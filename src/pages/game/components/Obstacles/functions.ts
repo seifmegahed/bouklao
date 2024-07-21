@@ -1,5 +1,5 @@
-import { OUT_OF_BOUNDS } from "../../data";
-import { obstacle_t } from "../Obstacle/types";
+import { OUT_OF_BOUNDS } from "@/pages/game/data";
+import { obstacle_t } from "@/pages/game/components/Obstacle/types";
 
 export const updateObstacles = (
   obstacles: obstacle_t[],

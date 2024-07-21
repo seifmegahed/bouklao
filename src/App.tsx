@@ -1,6 +1,6 @@
-import Footer from "./components/Footer";
-import Navbar from "./components/Nav";
-import Game from "./pages/game";
+import Footer from "@/components/Footer";
+import Navbar from "@/components/Nav";
+import Game from "@/pages/game";
 
 function App() {
   return (

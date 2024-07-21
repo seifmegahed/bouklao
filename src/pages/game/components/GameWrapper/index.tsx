@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getScale, gameSize } from "./functions";
-import Overlay from "../Overlay";
+import Overlay from "@/pages/game/components/Overlay";
 
 function GameWrapper({
   children,
@@ -25,7 +25,10 @@ function GameWrapper({
       ref={forwardRef}
     >
       <Overlay state={overlay} />
-      <div className={"relative overflow-hidden no-select"} style={gameSize(worldScale)}>
+      <div
+        className={"relative overflow-hidden no-select"}
+        style={gameSize(worldScale)}
+      >
         {children}
       </div>
     </div>

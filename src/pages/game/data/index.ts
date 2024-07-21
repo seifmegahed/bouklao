@@ -1,4 +1,4 @@
-import { MovingBackgroundType } from "../components/MovingBackground/types";
+import { MovingBackgroundType } from "@/pages/game/components/MovingBackground/types";
 
 // World
 export const WORLD_WIDTH = 100;

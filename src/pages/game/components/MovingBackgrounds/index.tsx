@@ -1,5 +1,5 @@
-import MovingBackground from "../MovingBackground";
-import { MovingBackgroundType } from "../MovingBackground/types";
+import MovingBackground from "@/pages/game/components/MovingBackground";
+import { MovingBackgroundType } from "@/pages/game/components/MovingBackground/types";
 
 function MovingBackgrounds(props: { items: MovingBackgroundType[] }) {
   const { items } = props;

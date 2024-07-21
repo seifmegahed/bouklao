@@ -1,12 +1,15 @@
 import { ReactNode, useState } from "react";
+
+import { useAuth } from "@/context/authContext";
+
+import Modal from "@/components/Modal";
+import Login from "@/components/Login";
+import UserPage from "@/components/UserPage";
+import ScoreBoard from "@/components/ScoreBoard";
+
 import MenuButton from "./MenuButton";
 import NavMenu from "./NavMenu";
 import MenuItem from "./MenuItem";
-import Modal from "../Modal";
-import { useAuth } from "../../context/authContext";
-import UserPage from "../UserPage";
-import ScoreBoard from "../ScoreBoard";
-import Login from "../Login";
 
 function Navbar() {
   const { user, logout } = useAuth();
@@ -60,9 +63,7 @@ function Navbar() {
         )}
         <MenuItem onClick={handleLeaderBoard}>Leader board</MenuItem>
         <MenuItem onClick={() => console.log("Help")}>Help</MenuItem>
-        {user && (
-          <MenuItem onClick={logout}>Sign out</MenuItem>
-        )}
+        {user && <MenuItem onClick={logout}>Sign out</MenuItem>}
       </NavMenu>
     </>
   );

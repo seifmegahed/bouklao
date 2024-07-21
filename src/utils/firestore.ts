@@ -10,8 +10,8 @@ import {
   setDoc,
   updateDoc,
 } from "firebase/firestore";
-import { firestore } from "../firebase-config";
-import { UserData } from "../context/authContext";
+import { firestore } from "@/firebase-config";
+import { UserData } from "@/context/authContext";
 import { User } from "firebase/auth";
 
 const userCollection = collection(firestore, "users");

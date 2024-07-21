@@ -1,4 +1,4 @@
-import MenuIcon from "../../icons/MenuIcon";
+import MenuIcon from "@/icons/MenuIcon";
 
 function MenuButton({ onClick }: { onClick: () => void }) {
   return (

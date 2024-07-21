@@ -2,7 +2,7 @@ import {
   OBSTACLE_INTERVAL_MAX,
   OBSTACLE_INTERVAL_MIN,
   obstacleImages,
-} from "../../data";
+} from "@/pages/game/data";
 
 export const randomNumberBetween = (min: number, max: number) =>
   Math.floor(Math.random() * (max - min + 1) + min);
