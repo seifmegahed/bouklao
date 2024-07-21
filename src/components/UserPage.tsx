@@ -9,10 +9,10 @@ import CatIcon from "@/icons/CatIcon";
 import { getAliases } from "@/utils/firestore";
 import { toast } from "sonner";
 
-function UserPage({ onClose }: { onClose: () => void }) {
+function UserPage() {
   const { user, updateUser, newUser } = useAuth();
   const [loading, setLoading] = useState(false);
-  const [alias, setAlias] = useState(user!.alias);
+  const [alias, setAlias] = useState("");
   const [aliases, setAliases] = useState<string[]>([]);
   const [error, setError] = useState("");
 
@@ -20,7 +20,6 @@ function UserPage({ onClose }: { onClose: () => void }) {
     setLoading(true);
     updateUser({ ...user!, alias })
       .then(() => {
-        onClose();
         toast("Saved!");
       })
       .catch((error) => {
@@ -41,6 +40,11 @@ function UserPage({ onClose }: { onClose: () => void }) {
       .finally(() => setLoading(false));
   }, [newUser]);
 
+  useEffect(() => {
+    if (!user) return;
+    setAlias(user.alias);
+  }, [user]);
+
   const handleChange = (value: string) => {
     setAlias(value.replace(" ", ""));
     if (aliases.includes(value.toLowerCase())) {
@@ -49,7 +53,7 @@ function UserPage({ onClose }: { onClose: () => void }) {
       setError("");
     }
   };
-
+  if (!user) return <Loading />;
   return (
     <>
       <Loading state={loading} />

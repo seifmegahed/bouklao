@@ -6,7 +6,7 @@ import Loading from "@/components/Loading";
 import GoogleLoginButton from "@/components/GoogleLoginButton";
 import { toast } from "sonner";
 
-function Login() {
+function Login({ onClose }: { onClose: () => void }) {
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
 
@@ -15,6 +15,7 @@ function Login() {
     login()
       .then((user) => {
         toast("Successfully logged in as " + user.displayName);
+        onClose();
       })
       .catch((error) => {
         console.error(error);

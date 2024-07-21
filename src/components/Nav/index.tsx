@@ -26,7 +26,7 @@ function Navbar() {
   const handleProfile = () => {
     setModalComponent({
       title: "Profile",
-      component: <UserPage onClose={closeMenu} />,
+      component: <UserPage />,
     });
     setMenuOpen(false);
   };
@@ -42,7 +42,7 @@ function Navbar() {
   const handleSignIn = () => {
     setModalComponent({
       title: "Sign in",
-      component: <Login />,
+      component: <Login onClose={() => handleProfile()} />,
     });
     setMenuOpen(false);
   };
@@ -62,7 +62,7 @@ function Navbar() {
     setMenuOpen(false);
     setModalComponent({
       title: "Profile",
-      component: <UserPage onClose={closeMenu} />,
+      component: <UserPage />,
     });
   }, [user, newUser]);
 
