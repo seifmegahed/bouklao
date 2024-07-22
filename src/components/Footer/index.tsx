@@ -4,10 +4,10 @@ const FOOTER_IMAGE =
 function Footer() {
   return (
     <>
-      <div className="sm:max-h-[20%] p-5 sm:mb-0 mb-16  flex sm:justify-start justify-center items-center w-full z-30">
-        <img src={FOOTER_IMAGE} className="h-full max-h-[100px]" />
+      <div className="sm:max-h-[20%] p-5 sm:mb-0 mb-10 flex sm:justify-start justify-center items-center w-full">
+        <img src={FOOTER_IMAGE} className="h-full max-h-[100px] z-30" />
       </div>
-      <div className="w-full text-center text-xs text-gray-600 flex flex-col sm:py-3 py-10 fixed bottom-0">
+      <div className="w-full text-center text-xs text-gray-600 flex flex-col sm:py-3 z-30 py-10">
         <span>
           &copy; {new Date().getFullYear()}{" "}
           <a
@@ -21,7 +21,7 @@ function Footer() {
           {". All rights reserved. Built by "}
           <a
             className="text-gray-800 hover:underline cursor-pointer"
-            href="mailto:seifmegahed@me.com"
+            href="https://github.com/seifmegahed"
             target="_blank"
             rel="noreferrer"
           >

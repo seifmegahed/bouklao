@@ -20,11 +20,8 @@ function GameWrapper({
       );
   }, []);
   return (
-    <div
-      className="flex items-center justify-center h-full w-full no-select"
-      ref={forwardRef}
-    >
-      <Overlay state={overlay} />
+    <div className="flex items-center justify-center h-full w-full no-select">
+      <Overlay state={overlay} forwardRef={forwardRef} />
       <div
         className={"relative overflow-hidden no-select"}
         style={gameSize(worldScale)}
