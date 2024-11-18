@@ -4,6 +4,7 @@ import App from "./App.tsx";
 import "./index.css";
 import { AuthProvider } from "./context/AuthProvider.tsx";
 import { Toaster } from "sonner";
+import { Analytics } from "@vercel/analytics/react";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -11,5 +12,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <App />
       <Toaster />
     </AuthProvider>
+    <Analytics />
   </React.StrictMode>
 );
